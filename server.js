@@ -28,13 +28,12 @@ app.get('/', function (req, res) {
 
 //Send an SMS text message on submit
 app.post('/submit', function (req, res) {
-	res.send("Hello! " + req.body.phone);
+	// res.send("Hello! " + req.body.phone);
 
-	// var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1);',[req.body.phone]);
-	// sendSMS(req.body.phone);
-	// insertQuery.on('end', function() {
-	 			
-	});
+	var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1);',[req.body.phone]);
+	sendSMS(req.body.phone);
+	insertQuery.on('end', function() {});
+});
 
 // Listen on the port
 app.listen(3000, function () {
