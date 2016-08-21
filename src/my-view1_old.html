@@ -11,9 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/gold-phone-input/gold-phone-input.html">
@@ -28,7 +25,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         padding: 10px;
-        background-color: #9c00b2;
       }
       .card {
         --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -65,30 +61,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0px;
       }
       
-      paper-dropdown-menu >, gold-phone-input, paper-input {
+      gold-phone-input {
         max-width: 200px;
         margin: auto;
-        color: white;
       }
       paper-button {
         max-width: 75px;
         margin: auto;
-        background-color: white;
-        border-radius: 0px;
       }
       button.no-style {
         -webkit-appearance: none;
         border: 0;
         padding: 0;
         background: transparent;
-        margin: auto;
-        max-width: 75px;
-      }
-      form, fieldset {
-        margin: auto;
-        max-width: 500px;
-        border: 0px white;
-        color: white;
       }
 
     </style>
@@ -96,28 +81,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h2 class="minor-announcement">HAVE YOU CALLED YOUR</h2>
       <h1 class="major-announcement">GRANDMA TODAY?</h1>
     </div>
-    <form class="iron-form" method="POST" action="http://localhost:3000/submit" id="form">
+    <form is="iron-form" method="POST" action="http://localhost:3000/submit" id="submitOptions">
       <fieldset>
-
-        <paper-input label="Your phone number" type="text" id="phone" name="phone"></paper-input>
-        <paper-input label="Who to call" type="text" id="who" name="who"></paper-input>
-        <paper-input label="Their phone number" type="text" id="who_number" name="who_number"></paper-input>
-        <paper-dropdown-menu label="# per month">
-          <paper-listbox class="dropdown-content">
-            <paper-item>1</paper-item>
-            <paper-item>2</paper-item>
-            <paper-item>3</paper-item>
-            <paper-item>4</paper-item>
-            <paper-item>5</paper-item>
-            <paper-item>6</paper-item>
-            <paper-item>7</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
-        <br>
-        <button onclick="submitForm()" type="submit" class="no-style">
-          <paper-button onclick="submitForm()" raised noink>SUBMIT</paper-button>
-        </button>
-
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone"></input>
+<!--         <gold-phone-input
+          type="text"
+          name="phone"
+          country-code="1"
+          auto-validate
+          require
+          id="phone">
+        </gold-phone-input>
+        <button type="submit" class="no-style">
+          <paper-button onclick="_submit(event)" raised raised noink>SUBMIT</paper-button>
+        </button> -->
+<!--         <div class="output"></div> -->
+        <input type="submit"></input>
+<!--     <paper-input label="phone number" char-counter maxlength="10">
+      <div prefix>+1</div>
+      <paper-icon-button suffix onclick="clearInput()" icon="clear" alt="clear" title="clear"></paper-icon-button>
+    </paper-input> 
+-->
       </fieldset>
     </form>
 
@@ -132,9 +117,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     });
 
-    function submitForm() {
-      document.getElementById('form').submit();
-    }
    //  function _submit(event) {
    //    Polymer.dom(event).localTarget.parentElement.submit();
    //  }
