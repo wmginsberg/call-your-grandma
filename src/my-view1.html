@@ -17,6 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/gold-phone-input/gold-phone-input.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
 
 
 
@@ -90,6 +92,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border: 0px white;
         color: white;
       }
+      paper-radio-group {
+        max-width: 500px;
+        margin: auto;
+      }
+      paper-radio-button {
+        color: white;
+      }
 
     </style>
     <div class="card">
@@ -102,17 +111,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-input label="Your phone number" type="text" id="phone" name="phone"></paper-input>
         <paper-input label="Who to call" type="text" id="who" name="who"></paper-input>
         <paper-input label="Their phone number" type="text" id="who_number" name="who_number"></paper-input>
-        <paper-dropdown-menu label="# per month">
-          <paper-listbox class="dropdown-content">
-            <paper-item>1</paper-item>
-            <paper-item>2</paper-item>
-            <paper-item>3</paper-item>
-            <paper-item>4</paper-item>
-            <paper-item>5</paper-item>
-            <paper-item>6</paper-item>
-            <paper-item>7</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
+        <paper-radio-group label="How many times per week?"  selected="opt1">
+          <paper-radio-button name="opt1">1</paper-radio-button>
+          <paper-radio-button name="opt2">2</paper-radio-button>
+          <paper-radio-button name="opt3">3</paper-radio-button>
+          <paper-radio-button name="opt4">4</paper-radio-button>
+        </paper-radio-group>
         <br>
         <button onclick="submitForm()" type="submit" class="no-style">
           <paper-button onclick="submitForm()" raised noink>SUBMIT</paper-button>
