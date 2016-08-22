@@ -30,7 +30,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         padding: 10px;
-        background-color: #9c00b2;
+        background-color: cornflowerblue; 
+        -#9c00b2;
       }
       .card {
         --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -73,20 +74,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: auto;
         color: white;
       }
-      paper-button {
-        max-width: 75px;
-        margin: auto;
-        background-color: white;
-        border-radius: 0px;
-      }
-      button.no-style {
-        -webkit-appearance: none;
-        border: 0;
-        padding: 0;
-        background: transparent;
-        margin: auto;
-        max-width: 75px;
-      }
       form, fieldset {
         margin: auto;
         max-width: 500px;
@@ -102,6 +89,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       paper-radio-button {
         color: white;
       }
+      paper-button {
+        padding:0;
+        background-color: white;
+        border-radius: 0px;
+        color: black;
+      }
+      paper-button::shadow .button-content {
+        padding:0;
+      }
+      paper-button button {
+        padding:1em;
+        background-color: transparent;
+        border-color: transparent;
+      }
+      paper-button button::-moz-focus-inner {
+        border: 0;
+      }
 
     </style>
     <div class="card">
@@ -113,17 +117,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       will get a text that number of times on random days, suggesting you call your grandparent. You just need
       to click the text and a call will be made :) 
     </p>
-    <form class="iron-form" method="POST" action="http://localhost:3000/submit" id="form">
+    <form is="iron-form" method="POST" action="http://localhost:3000/submit" id="form">
       <fieldset>
         
         <br>
 
         <label>Your phone number</label>
-        <paper-input label="+1-(333)-333-3333" type="text" id="phone" name="phone"></paper-input>
+        <paper-input label="+1-(333)-333-3333" type="text" id="phone" name="toText"></paper-input>
         <label>Who you're calling</label>
-        <paper-input label="Grandma" type="text" id="who" name="who"></paper-input>
+        <paper-input label="Grandma" type="text" id="who" name="toCallName"></paper-input>
         <label>Their phone number</label>
-        <paper-input label="+1-(444)-444-4444" type="text" id="who_number" name="who_number"></paper-input>
+        <paper-input label="+1-(444)-444-4444" type="text" id="who_number" name="toCallNum"></paper-input>
         <label>How many times per week?</label>
         <paper-radio-group selected="opt1">
           <paper-radio-button name="opt1">1</paper-radio-button>
@@ -135,9 +139,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <br>
        
 
-        <button onclick="submitForm()" type="submit" class="no-style">
-          <paper-button onclick="submitForm()" raised noink>SUBMIT</paper-button>
-        </button>
+        <!-- <button on-tap="submitForm" type="submit" class="no-style">    -->       
+        <paper-button raised noink>
+          <button type="submit">SUBMIT</button>
+        </paper-button>
+   <!--      </button>  -->
 
       </fieldset>
     </form>
@@ -149,13 +155,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
 
-      is: 'my-view1'
+      is: 'my-view1',
+
+      // listeners: {
+      //   'special.tap': 'specialTap'
+      // },
+
+      // specialTap: function(e) {
+      //   alert("It was special tapping!!!");
+      // },
+
+      // submitForm : function(e) {
+      //   console.log(e.target + " was clicked");
+      //   Polymer.dom(e).localTarget.submit();
+      // //  e.target.submit();
+      // //  e.target.getElementById("special").submit();
+      // }
 
     });
 
-    function submitForm() {
-      document.getElementById('form').submit();
-    }
+    // function submitForm() {
+    //   document.getElementById('form').submit();
+    // }
    //  function _submit(event) {
    //    Polymer.dom(event).localTarget.parentElement.submit();
    //  }

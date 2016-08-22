@@ -30,8 +30,8 @@ app.get('/', function (req, res) {
 app.post('/submit', function (req, res) {
 	// res.send("Hello! " + req.body.phone);
 
-	var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1);',[req.body.phone]);
-	sendSMS(req.body.phone);
+	var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1);',[req.body.toText]);
+	sendSMS(req.body.toText, req.body.toCallName, req.body.toCallNum);
 	insertQuery.on('end', function() {});
 });
 
@@ -41,11 +41,12 @@ app.listen(3000, function () {
 });
 
 // Send object
-function sendSMS(phone) {
+function sendSMS(toText,toCallName,toCallNum) {
+	var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!'; 
 	client.sendMessage({
-	    to: phone, // Any number Twilio can deliver to
+	    to: toText, // Any number Twilio can deliver to
 	    from: '+14243206951', // A number you bought from Twilio and can use for outbound communication
-	    body: 'this is a test!' // body of the SMS message
+	    body: msg// body of the SMS message
 
 	}, function(err, responseData) { //this function is executed when a response is received from Twilio
 	    if (!err) { // "err" is an error received during the request, if any
@@ -54,6 +55,9 @@ function sendSMS(phone) {
 	        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
 	        console.log(responseData.from); // outputs "+14506667788"
 	        console.log(responseData.body); // outputs "word to your mother."
+	    }
+	    else {
+	    	console.log(err);
 	    }
 	});
 }
