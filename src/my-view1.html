@@ -35,12 +35,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .card {
         --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         padding: 16px;
-        margin: 24px;
+        margin: 24px auto;
         background-color: #9c00b2;
         color: #757575;
         text-align: center;
         font-family: Impact;
         border: 5px solid white;
+        max-width: 750px;
       }
 /*      h1 {
         font-size: 40px;
@@ -68,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       
       paper-dropdown-menu >, gold-phone-input, paper-input {
-        max-width: 200px;
+        max-width: 50%;
         margin: auto;
         color: white;
       }
@@ -92,9 +93,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border: 0px white;
         color: white;
       }
-      paper-radio-group {
+      p, paper-radio-group, paper-radio-button {
         max-width: 500px;
         margin: auto;
+        color: white;
+        font: Helvetica;
       }
       paper-radio-button {
         color: white;
@@ -105,19 +108,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h2 class="minor-announcement">HAVE YOU CALLED YOUR</h2>
       <h1 class="major-announcement">GRANDMA TODAY?</h1>
     </div>
+    <p> We're always on our phones, but we do not take 10 minutes out of our day to call our grandparents.
+      Add your phone number, name of who to call, their phone number, and select a # of times per week. You
+      will get a text that number of times on random days, suggesting you call your grandparent. You just need
+      to click the text and a call will be made :) 
+    </p>
     <form class="iron-form" method="POST" action="http://localhost:3000/submit" id="form">
       <fieldset>
+        
+        <br>
 
-        <paper-input label="Your phone number" type="text" id="phone" name="phone"></paper-input>
-        <paper-input label="Who to call" type="text" id="who" name="who"></paper-input>
-        <paper-input label="Their phone number" type="text" id="who_number" name="who_number"></paper-input>
-        <paper-radio-group label="How many times per week?"  selected="opt1">
+        <label>Your phone number</label>
+        <paper-input label="+1-(333)-333-3333" type="text" id="phone" name="phone"></paper-input>
+        <label>Who you're calling</label>
+        <paper-input label="Grandma" type="text" id="who" name="who"></paper-input>
+        <label>Their phone number</label>
+        <paper-input label="+1-(444)-444-4444" type="text" id="who_number" name="who_number"></paper-input>
+        <label>How many times per week?</label>
+        <paper-radio-group selected="opt1">
           <paper-radio-button name="opt1">1</paper-radio-button>
           <paper-radio-button name="opt2">2</paper-radio-button>
           <paper-radio-button name="opt3">3</paper-radio-button>
           <paper-radio-button name="opt4">4</paper-radio-button>
         </paper-radio-group>
+       
         <br>
+       
+
         <button onclick="submitForm()" type="submit" class="no-style">
           <paper-button onclick="submitForm()" raised noink>SUBMIT</paper-button>
         </button>
