@@ -121,20 +121,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <fieldset>
         
         <br>
-
-        <label>Your phone number</label>
-        <paper-input label="+1-(333)-333-3333" type="text" id="phone" name="toText"></paper-input>
-        <label>Who you're calling</label>
-        <paper-input label="Grandma" type="text" id="who" name="toCallName"></paper-input>
-        <label>Their phone number</label>
-        <paper-input label="+1-(444)-444-4444" type="text" id="who_number" name="toCallNum"></paper-input>
-        <label>How many times per week?</label>
-        <paper-radio-group selected="opt1">
-          <paper-radio-button name="opt1">1</paper-radio-button>
-          <paper-radio-button name="opt2">2</paper-radio-button>
-          <paper-radio-button name="opt3">3</paper-radio-button>
-          <paper-radio-button name="opt4">4</paper-radio-button>
-        </paper-radio-group>
+        <table>
+          <tr>
+            <td>
+              <label>Your phone number</label>
+            </td>
+            <td>
+              <paper-input label="  (333)-333-3333" type="text" id="phone" auto-validate pattern="[0-9]*" error-message="numbers only!" name="toText">
+                <div prefix>+1</div>
+              </paper-input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Who you're calling</label>
+            </td>
+            <td>
+              <paper-input label="Grandma" type="text" id="who" name="toCallName"></paper-input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Their phone number</label>
+            </td>
+            <td>
+              <paper-input label="  (444)-444-4444" type="text" id="who_number" auto-validate pattern="[0-9]*" error-message="numbers only!" name="toCallNum">
+                <div prefix>+1</div>
+              </paper-input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>How many times per week?</label>
+            </td>
+            <td>
+              <paper-radio-group selected="opt1">
+                <paper-radio-button name="opt1">1</paper-radio-button>
+                <paper-radio-button name="opt2">2</paper-radio-button>
+                <paper-radio-button name="opt3">3</paper-radio-button>
+                <paper-radio-button name="opt4">4</paper-radio-button>
+              </paper-radio-group>
+            </td>
+          </tr>
+        </table>
        
         <br>
        
