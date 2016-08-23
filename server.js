@@ -29,12 +29,11 @@ app.get('/', function (req, res) {
 //Send an SMS text message on submit
 app.post('/submit', function (req, res) {
 	// res.send("Hello! " + req.body.phone);
-
-	var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1);',[req.body.toText]);
+	//res.send(req.body.toText + " " + req.body.toCallName + " " + req.body.toCallNum + " " + req.body.toCallFreq);
+	var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1, $2, $3, $4);',[req.body.toText, req.body.toCallName, req.body.toCallNum, "3"]);
 	sendSMS(req.body.toText, req.body.toCallName, req.body.toCallNum);
 	insertQuery.on('end', function() {});
 });
-
 // Listen on the port
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');

@@ -44,21 +44,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 16px 0;
         color: #212121;
       }
-      paper-button {
+      #add {
         background-color: white;
       }
+
+      #remove {
+        background-color: grey;
+      }
+
     </style>
 
     <div id="cardlist">
-      <div class="card">
+<!--       <div class="card">
         <div class="circle">2</div>
         <h1>View Two</h1>
         <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
         <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
-      </div>
+      </div> -->
     </div>
 
-    <paper-button raised noink on-tap="addCard"> ADD </paper-button>
+    <paper-button id="add" raised noink on-tap="addCard"> ADD </paper-button>
+    <paper-button id="remove" raised noink on-tap="removeCard"> REMOVE </paper-button>
 
   </template>
 
@@ -68,13 +74,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       is: 'my-view2',
       addCard: function() {
-        alert("add card!");
+        var numCards = Polymer.dom(this.root).children[1].children.length + 1;
+
         var div = document.createElement("div");
         div.className = "card";
         
         var circle = document.createElement("div");
         circle.className = "circle";
-        circle.innerHTML = "2";
+        circle.innerHTML = numCards;
         div.appendChild(circle);
         
         var h1 = document.createElement("h1");
@@ -85,7 +92,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         p.innerHTML = "Ea duis bonorum nec, falli paulo aliquid ei eum.";
         div.appendChild(p);
 
+        // var x = document.createElement("paper-button");
+        // var myNum = numCards - 1;
+        // console.log(myNum);
+        // var thisCard = Polymer.dom(this.root).children[1].children[myNum];
+        // x.onclick = function() {
+        //   console.log("ON CLICK");
+        //   Polymer.dom(this.root).children[1].removeChild(div); 
+        // }
+        // x.innerHTML = "X";
+        // div.appendChild(x);
+
         Polymer.dom(this.root).children[1].appendChild(div);
+      },
+      removeCard: function() {
+        Polymer.dom(this.root).children[1].removeChild(Polymer.dom(this.root).children[1].lastChild);
       }
 
     });
