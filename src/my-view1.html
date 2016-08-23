@@ -39,8 +39,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 24px auto;
         background-color: #9c00b2;
         color: #757575;
-        text-align: center;
-        font-family: Impact;
         border: 5px solid white;
         max-width: 750px;
       }
@@ -63,10 +61,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       h1 {
         padding: 0px;
         margin: 0px;
+        text-align: center;
+        font-family: Impact;
       }
       h2 {
         padding: 0px;
         margin: 0px;
+        text-align: center;
       }
       
       paper-dropdown-menu >, gold-phone-input, paper-input {
@@ -127,7 +128,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <label>Your phone number</label>
             </td>
             <td>
-              <paper-input label="  (333)-333-3333" type="text" id="phone" auto-validate pattern="[0-9]*" error-message="numbers only!" name="toText">
+              <paper-input no-label-float label="-(333)-333-3333" type="text" id="phone" auto-validate pattern="[0-9]*" error-message="numbers only!" name="toText">
                 <div prefix>+1</div>
               </paper-input>
             </td>
@@ -137,7 +138,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <label>Who you're calling</label>
             </td>
             <td>
-              <paper-input label="Grandma" type="text" id="who" name="toCallName"></paper-input>
+              <paper-input no-label-float label="Grandma" type="text" id="who" name="toCallName"></paper-input>
             </td>
           </tr>
           <tr>
@@ -145,7 +146,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <label>Their phone number</label>
             </td>
             <td>
-              <paper-input label="  (444)-444-4444" type="text" id="who_number" auto-validate pattern="[0-9]*" error-message="numbers only!" name="toCallNum">
+              <paper-input no-label-float label="-(444)-444-4444" type="text" id="who_number" auto-validate pattern="[0-9]*" error-message="numbers only!" name="toCallNum">
                 <div prefix>+1</div>
               </paper-input>
             </td>

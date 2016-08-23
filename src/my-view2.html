@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <dom-module id="my-view2">
 
@@ -43,14 +44,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 16px 0;
         color: #212121;
       }
+      paper-button {
+        background-color: white;
+      }
     </style>
 
-    <div class="card">
-      <div class="circle">2</div>
-      <h1>View Two</h1>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+    <div id="cardlist">
+      <div class="card">
+        <div class="circle">2</div>
+        <h1>View Two</h1>
+        <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
+        <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+      </div>
     </div>
+
+    <paper-button raised noink on-tap="addCard"> ADD </paper-button>
 
   </template>
 
@@ -58,7 +66,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
 
-      is: 'my-view2'
+      is: 'my-view2',
+      addCard: function() {
+        alert("add card!");
+        var div = document.createElement("div");
+        div.className = "card";
+        
+        var circle = document.createElement("div");
+        circle.className = "circle";
+        circle.innerHTML = "2";
+        div.appendChild(circle);
+        
+        var h1 = document.createElement("h1");
+        h1.innerHTML = "Next View";
+        div.appendChild(h1);
+
+        var p = document.createElement("p");
+        p.innerHTML = "Ea duis bonorum nec, falli paulo aliquid ei eum.";
+        div.appendChild(p);
+
+        Polymer.dom(this.root).children[1].appendChild(div);
+      }
 
     });
 
