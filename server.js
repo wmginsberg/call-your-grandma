@@ -25,6 +25,27 @@ app.get('/', function (req, res) {
   res.render("index.html");
 });
 
+app.get('/view1', function (req, res) {
+  res.render("index.html");
+});
+
+app.get('/view2', function (req, res) {
+  var sql = 'SELECT to_text, to_call_name, to_call_num, to_call_freq FROM CallerInfo';
+  var to_text, to_call_name, to_call_num, to_call_freq;
+  var reminders = [];
+  conn.query(sql)
+  .on('row',function(row) {
+  	to_text = row.to_text;
+    to_call_name = row.to_call_name;
+    to_call_num = row.to_call_num;
+    to_call_freq = row.to_call_freq;
+  	reminders.push([to_text,to_call_name,to_call_num,to_call_freq]);
+  })
+  .on('end', function(res) {
+  	res.json(reminders);
+  });
+});
+
 
 //Send an SMS text message on submit
 app.post('/submit', function (req, res) {
