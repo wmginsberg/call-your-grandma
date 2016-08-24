@@ -1,0 +1,25 @@
+<dom-module id="reminder-data">
+
+<script>
+	Polymer({ 
+		is: 'reminder-data',
+		properties: {
+			todos: {
+				notify: true,
+				value: function() {
+					return [
+					{
+						label: 'Call Grandma',
+						isActive: true,
+						toCallName: 'Grandma',
+						toCallNum: '15165034558'
+					}];
+				}
+			}
+		}
+
+	});
+</script>
+
+</dom-module>
+

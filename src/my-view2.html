@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="./reminder-item.html">
+<link rel="import" href="./reminder-list.html">
 
 <dom-module id="my-view2">
 
@@ -62,9 +64,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
       </div> -->
     </div>
+    <reminder-list reminders="{{reminders}}"></reminder-list>
 
-    <paper-button id="add" raised noink on-tap="addCard"> ADD </paper-button>
-    <paper-button id="remove" raised noink on-tap="removeCard"> REMOVE </paper-button>
+    <paper-button id="add" raised noink on-tap="addReminder"> ADD </paper-button>
+    <paper-button id="remove" raised noink on-tap="removeReminder"> REMOVE </paper-button>
 
   </template>
 
@@ -73,43 +76,62 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
 
       is: 'my-view2',
-      addCard: function() {
-        var numCards = Polymer.dom(this.root).children[1].children.length + 1;
-
-        var div = document.createElement("div");
-        div.className = "card";
-        
-        var circle = document.createElement("div");
-        circle.className = "circle";
-        circle.innerHTML = numCards;
-        div.appendChild(circle);
-        
-        var h1 = document.createElement("h1");
-        h1.innerHTML = "Next View";
-        div.appendChild(h1);
-
-        var p = document.createElement("p");
-        p.innerHTML = "Ea duis bonorum nec, falli paulo aliquid ei eum.";
-        div.appendChild(p);
-
-        // var x = document.createElement("paper-button");
-        // var myNum = numCards - 1;
-        // console.log(myNum);
-        // var thisCard = Polymer.dom(this.root).children[1].children[myNum];
-        // x.onclick = function() {
-        //   console.log("ON CLICK");
-        //   Polymer.dom(this.root).children[1].removeChild(div); 
-        // }
-        // x.innerHTML = "X";
-        // div.appendChild(x);
-
-        Polymer.dom(this.root).children[1].appendChild(div);
+      properties: {
+        reminders: {
+          type: Array,
+          value: function() { return []; }
+        }
       },
-      removeCard: function() {
-        Polymer.dom(this.root).children[1].removeChild(Polymer.dom(this.root).children[1].lastChild);
+      addReminder: function(e) {
+        this.push('reminders', {
+            label: 'Call Grandma',
+            isActive: true,
+            toCallName: 'Grandma',
+            toCallNum: '15165034558'
+        });
+      },
+      removeReminder: function(e) {
+        var item = this.pop('reminders');
+        alert(item.label + " cancelled.");
       }
+      // addCard: function() {
+      //   var numCards = Polymer.dom(this.root).children[1].children.length + 1;
+
+      //   var div = document.createElement("div");
+      //   div.className = "card";
+        
+      //   var circle = document.createElement("div");
+      //   circle.className = "circle";
+      //   circle.innerHTML = numCards;
+      //   div.appendChild(circle);
+        
+      //   var h1 = document.createElement("h1");
+      //   h1.innerHTML = "Next View";
+      //   div.appendChild(h1);
+
+      //   var p = document.createElement("p");
+      //   p.innerHTML = "Ea duis bonorum nec, falli paulo aliquid ei eum.";
+      //   div.appendChild(p);
+
+      //   // var x = document.createElement("paper-button");
+      //   // var myNum = numCards - 1;
+      //   // console.log(myNum);
+      //   // var thisCard = Polymer.dom(this.root).children[1].children[myNum];
+      //   // x.onclick = function() {
+      //   //   console.log("ON CLICK");
+      //   //   Polymer.dom(this.root).children[1].removeChild(div); 
+      //   // }
+      //   // x.innerHTML = "X";
+      //   // div.appendChild(x);
+
+      //   Polymer.dom(this.root).children[1].appendChild(div);
+      // },
+      // removeCard: function() {
+      //   Polymer.dom(this.root).children[1].removeChild(Polymer.dom(this.root).children[1].lastChild);
+      // }
 
     });
+
 
   </script>
 

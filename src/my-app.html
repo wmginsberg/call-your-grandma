@@ -23,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="my-app">
 
-  <template>
+  <template is="dom-bind">
 
     <style>
 
@@ -90,11 +90,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div title>Call Your Grandma</div>
           </app-toolbar>
         </app-header>
-
+        <reminder-data reminders="{{reminders}}"></reminder-data>
         <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
+          <my-view1 reminders="{{reminders}}" name="view1"></my-view1>
+          <my-view2 reminders="{{reminders}}" name="view2"></my-view2>
+          <my-view3 reminders="{{reminders}}" name="view3"></my-view3>
         </iron-pages>
 
       </app-header-layout>

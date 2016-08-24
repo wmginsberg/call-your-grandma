@@ -17,6 +17,18 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 // connect the db
 var conn = anyDB.createConnection('sqlite3://callyourgrandma.db');
 
+// Set the configuration for your app
+// TODO: Replace with your project's config object
+// var config = {
+// 		apiKey: "AIzaSyDfdhSOjvOuBu30RoxUT-wLEm9Sko_XMGQ",
+// 		authDomain: "callyourgrandma-88bcd.firebaseapp.com",
+// 		databaseURL: "https://callyourgrandma-88bcd.firebaseio.com/",
+// 		storageBucket: ""
+// 		};
+// firebase.initializeApp(config);
+
+// // Get a reference to the database service
+// var database = firebase.database();
 
 
 

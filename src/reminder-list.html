@@ -1,0 +1,18 @@
+<dom-module id="reminder-list">
+
+<template>
+	<template is="dom-repeat" items="{{reminders}}" as="reminder">
+		<reminder-item reminder="{{reminder}}"></reminder-item>
+	</template>
+</template>
+
+<script>
+Polymer({
+	is: 'reminder-list',
+	properties: {
+		reminder: Array
+	}
+});
+</script>
+
+</dom-module>
