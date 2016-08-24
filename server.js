@@ -1,7 +1,9 @@
 // require necessary packages
 var express = require('express');
-var app = express();
 var anyDB = require('any-db');
+var firebase = require('firebase');
+var app = express();
+//var my_app = firebase.initializeApp({});
 
 //require the Twilio module and create a REST client
 var client = require('./node_modules/twilio')('ACff1ac681b33572df5f79ebfe345cc371', 'd1e91c6aabb4864a8a4d5bb7f1994ee1');
@@ -19,16 +21,24 @@ var conn = anyDB.createConnection('sqlite3://callyourgrandma.db');
 
 // Set the configuration for your app
 // TODO: Replace with your project's config object
-// var config = {
-// 		apiKey: "AIzaSyDfdhSOjvOuBu30RoxUT-wLEm9Sko_XMGQ",
-// 		authDomain: "callyourgrandma-88bcd.firebaseapp.com",
-// 		databaseURL: "https://callyourgrandma-88bcd.firebaseio.com/",
-// 		storageBucket: ""
-// 		};
-// firebase.initializeApp(config);
+var config = {
+		apiKey: "AIzaSyDfdhSOjvOuBu30RoxUT-wLEm9Sko_XMGQ",
+		authDomain: "callyourgrandma-88bcd.firebaseapp.com",
+		databaseURL: "https://callyourgrandma-88bcd.firebaseio.com/",
+		storageBucket: ""
+		};
+firebase.initializeApp(config);
 
-// // Get a reference to the database service
-// var database = firebase.database();
+// Get a reference to the database service
+var database = firebase.database();
+
+database.ref().push({
+	label: 'Call Grandma',
+	isActive: true,
+	isEditable: false,
+	toCallName: 'Grandma',
+	toCallNum: '15165034558'
+});
 
 
 
@@ -63,10 +73,21 @@ app.get('/view2', function (req, res) {
 app.post('/submit', function (req, res) {
 	// res.send("Hello! " + req.body.phone);
 	//res.send(req.body.toText + " " + req.body.toCallName + " " + req.body.toCallNum + " " + req.body.toCallFreq);
-	var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1, $2, $3, $4);',[req.body.toText, req.body.toCallName, req.body.toCallNum, "3"]);
-	sendSMS(req.body.toText, req.body.toCallName, req.body.toCallNum);
-	insertQuery.on('end', function() {});
+
+	// var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1, $2, $3, $4);',[req.body.toText, req.body.toCallName, req.body.toCallNum, "3"]);
+	// sendSMS(req.body.toText, req.body.toCallName, req.body.toCallNum);
+	// insertQuery.on('end', function() {});
+
+	database.ref().push({
+		label: req.body.label,
+		isActive: req.body.isActive,
+		isEditable: req.body.isEditable,
+		toCallName: req.body.toCallName,
+		toCallNum: req.body.toCallNum
+	});	
+
 });
+
 // Listen on the port
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');

@@ -27,6 +27,7 @@
 		<paper-input name="toCallNum" value="{{reminder.toCallNum}}">
 			<div prefix> At&nbsp;</div>
 		</paper-input>
+		<paper-button on-tap="makeEditable" link> SAVE </paper-button>
 	</div>
 </template>
 
@@ -35,6 +36,23 @@ Polymer({
 	is: 'reminder-item',
 	properties: {
 		reminder: Object
+	},
+	makeEditable: function () {
+		if (this.reminder.isEditable) {
+			this.reminder.isEditable = false;
+			var inputs = this.root.childNodes[2].getElementsByTagName("paper-input")
+			for (i = 0; i < inputs.length; i++) {
+			    inputs[i].disabled = true;
+			}
+			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "EDIT";
+		} else {
+			this.reminder.isEditable = true;
+			var inputs = this.root.childNodes[2].getElementsByTagName("paper-input")
+			for (i = 0; i < inputs.length; i++) {
+			    inputs[i].disabled = false;
+			}
+			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "SAVE";
+		}
 	}
 });
 </script>

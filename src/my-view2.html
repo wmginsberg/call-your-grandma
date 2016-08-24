@@ -84,10 +84,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       addReminder: function(e) {
         this.push('reminders', {
-            label: 'Call Grandma',
+            label: '',
             isActive: true,
-            toCallName: 'Grandma',
-            toCallNum: '15165034558'
+            isEditable: true,
+            toCallName: '',
+            toCallNum: ''
         });
       },
       removeReminder: function(e) {

@@ -4,13 +4,14 @@
 	Polymer({ 
 		is: 'reminder-data',
 		properties: {
-			todos: {
+			reminders: {
 				notify: true,
 				value: function() {
 					return [
 					{
 						label: 'Call Grandma',
 						isActive: true,
+						isEditable: false,
 						toCallName: 'Grandma',
 						toCallNum: '15165034558'
 					}];
