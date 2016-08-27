@@ -24,7 +24,8 @@
     "paper-item": "PolymerElements/paper-item#^1.2.1",
     "paper-listbox": "polymerelements/paper-listbox#^1.1.2",
     "paper-radio-group": "PolymerElements/paper-radio-group#^1.2.0",
-    "paper-radio-button": "PolymerElements/paper-radio-button#^1.2.1"
+    "paper-radio-button": "PolymerElements/paper-radio-button#^1.2.1",
+    "polymerfire": "firebase/polymerfire#^0.9.5"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

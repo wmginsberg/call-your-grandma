@@ -1,8 +1,19 @@
 <dom-module id="reminder-list">
 
 <template>
+<firebase-query
+    id="query"
+    app-name="call-your-grandma"
+    path="/"
+    data="{{reminders}}">
+</firebase-query>	
+<firebase-document
+		  path="/"
+		  data="{{reminders}}">
+</firebase-document>
+
 	<template is="dom-repeat" items="{{reminders}}" as="reminder">
-		<reminder-item reminder="{{reminder}}"></reminder-item>
+		<reminder-item id="reminder" reminder="{{reminder}}"></reminder-item>
 	</template>
 </template>
 
@@ -10,7 +21,15 @@
 Polymer({
 	is: 'reminder-list',
 	properties: {
-		reminder: Array
+		reminder: Array,
+	    data: {
+	      type: Object,
+	      observer: 'dataChanged'
+	    }		
+	},
+	dataChanged: function (newData, oldData) {
+	    // do something when the query returns values
+	    this.reminder-item()
 	}
 });
 </script>

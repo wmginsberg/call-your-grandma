@@ -6,16 +6,35 @@
 		properties: {
 			reminders: {
 				notify: true,
-				value: function() {
-					return [
-					{
-						label: 'Call Grandma',
-						isActive: true,
-						isEditable: false,
-						toCallName: 'Grandma',
-						toCallNum: '15165034558'
-					}];
-				}
+		        label: {
+		          type: String,
+		          reflectToAttribute: true,
+		          value: 'Call Grandma'
+		        },
+
+		        isActive: {
+		          type: Boolean,
+		          notify: true,
+		          value: true
+		        },
+
+		        isEditable: {
+		          type: Boolean,
+		          notify: true,
+		          value: false
+		        },
+
+		        toCallName: {
+		          type: String,
+		          notify: true,
+		          value: 'Grandma Nancy'
+		        },
+
+		        toCallNum: {
+		          type: String,
+		          notify: true,
+		          value: '+15165034558'
+		        }
 			}
 		}
 

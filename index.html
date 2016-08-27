@@ -16,27 +16,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <title>Call Your Grandma</title>
 
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+  <script> window.Polymer = {lazyRegister: true, dom: 'shadow'}; </script>
   <link rel="shortcut icon" sizes="32x32" href="/images/app-icon-32.png">
+  <link rel="import" href="bower_components/polymer/polymer.html">
+  <link rel="import" href="bower_components/polymerfire/polymerfire.html">
 
   <meta name="theme-color" content="#fff">
   <link rel="manifest" href="/manifest.json">
 
-  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
   <script>
     // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyDfdhSOjvOuBu30RoxUT-wLEm9Sko_XMGQ",
-      authDomain: "callyourgrandma-88bcd.firebaseapp.com",
-      databaseURL: "https://callyourgrandma-88bcd.firebaseio.com",
-      storageBucket: "",
-    };
-    firebase.initializeApp(config);
+    // var config = {
+    //   apiKey: "AIzaSyDfdhSOjvOuBu30RoxUT-wLEm9Sko_XMGQ",
+    //   authDomain: "callyourgrandma-88bcd.firebaseapp.com",
+    //   databaseURL: "https://callyourgrandma-88bcd.firebaseio.com",
+    //   storageBucket: ""
+    // };
+    // firebase.initializeApp(config);
   </script>
     
   <script>
 
     // setup Polymer options
-    window.Polymer = {lazyRegister: true, dom: 'shadow'};
+ //   window.Polymer = {lazyRegister: true, dom: 'shadow'};
 
     // load webcomponents polyfills
     (function() {
@@ -77,6 +81,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 </head>
 <body>
+  <firebase-app
+      name="call-your-grandma"
+      api-key= "AIzaSyDfdhSOjvOuBu30RoxUT-wLEm9Sko_XMGQ",
+      auth-domain= "callyourgrandma-88bcd.firebaseapp.com",
+      database-url= "https://callyourgrandma-88bcd.firebaseio.com">
+  </firebase-app>
 
   <my-app></my-app>
 
