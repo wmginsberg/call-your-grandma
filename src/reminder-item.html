@@ -18,13 +18,13 @@
 	</style>
 	<div class="card">
 		<h2> Reminder </h2>
-		<paper-input name="title" value="{{reminder.label}}">
+		<paper-input id="titleInput" name="title" value="{{reminder.label}}">
 			<div prefix> Message&nbsp;</div>
 		</paper-input>
-		<paper-input name="toCallName" value="{{reminder.toCallName}}">
+		<paper-input id="nameInput" name="toCallName" value="{{reminder.toCallName}}">
 			<div prefix> Call&nbsp;</div>
 		</paper-input>
-		<paper-input name="toCallNum" value="{{reminder.toCallNum}}">
+		<paper-input id="numInput" name="toCallNum" value="{{reminder.toCallNum}}">
 			<div prefix> At&nbsp;</div>
 		</paper-input>
 		<paper-button on-tap="makeEditable" link> SAVE </paper-button>
@@ -44,7 +44,9 @@ Polymer({
 			for (i = 0; i < inputs.length; i++) {
 			    inputs[i].disabled = true;
 			}
+			// should save to db here
 			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "EDIT";
+			console.log();
 		} else {
 			this.reminder.isEditable = true;
 			var inputs = this.root.childNodes[2].getElementsByTagName("paper-input")
