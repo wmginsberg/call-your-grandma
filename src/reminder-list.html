@@ -1,14 +1,15 @@
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <dom-module id="reminder-list">
 
 <template>
-<firebase-query
+<!-- <firebase-query
     id="query"
     app-name="call-your-grandma"
     path="/"
     data="{{reminders}}">
-</firebase-query>	
+</firebase-query>	 -->
 <firebase-document
-		  path="/"
+		  path="/reminders/{{path}}"
 		  data="{{reminders}}">
 </firebase-document>
 

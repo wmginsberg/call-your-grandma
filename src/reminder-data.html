@@ -1,41 +1,40 @@
 <dom-module id="reminder-data">
-
+<template>
+<!-- 	<firebase-document data="{{label}}"></firebase-document> -->
+</template>
 <script>
 	Polymer({ 
 		is: 'reminder-data',
 		properties: {
-			reminders: {
-				notify: true,
-		        label: {
-		          type: String,
-		          reflectToAttribute: true,
-		          value: 'Call Grandma'
-		        },
+	        label: {
+	          type: String,
+	          reflectToAttribute: true,
+	          value: 'Call Grandma'
+	        },
 
-		        isActive: {
-		          type: Boolean,
-		          notify: true,
-		          value: true
-		        },
+	        isActive: {
+	          type: Boolean,
+	          notify: true,
+	          value: true
+	        },
 
-		        isEditable: {
-		          type: Boolean,
-		          notify: true,
-		          value: false
-		        },
+	        isEditable: {
+	          type: Boolean,
+	          notify: true,
+	          value: false
+	        },
 
-		        toCallName: {
-		          type: String,
-		          notify: true,
-		          value: 'Grandma Nancy'
-		        },
+	        toCallName: {
+	          type: String,
+	          notify: true,
+	          value: 'Grandma Nancy'
+	        },
 
-		        toCallNum: {
-		          type: String,
-		          notify: true,
-		          value: '+15165034558'
-		        }
-			}
+	        toCallNum: {
+	          type: String,
+	          notify: true,
+	          value: '+15165034558'
+	        }
 		}
 
 	});

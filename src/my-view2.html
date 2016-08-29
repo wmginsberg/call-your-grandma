@@ -83,6 +83,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             toCallNum: ''
         };
         this.reminder = reminder;
+        // var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders').push(reminder);
+
+        // var key = reminderRef.key;
+
+        // var path = '/reminders/' + key;
+
+
         this.push('reminders', reminder);
         console.log('reminder ' + reminder.isEditable);
       },
