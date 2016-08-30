@@ -35,6 +35,7 @@
 			<div prefix> At&nbsp;</div>
 		</paper-input>
 		<paper-button on-tap="makeEditable" id="isEditable" name="isEditable" value="{{reminder.isEditable}}" link> EDIT </paper-button>
+		<paper-button on-tap="remove" link> REMOVE </paper-button>
 	</div>
 </template>
 
@@ -45,6 +46,9 @@ Polymer({
 		reminder: Object,
 		path: '/reminders'
 	},
+	remove: function() {
+		var reminderRef = firebase.app('call-your-grandma').database().ref("/reminders/" + this.reminder.$key).remove();
+	},
 	makeEditable: function () {
 		this.path = '/reminders/'
 		if (this.reminder.isEditable) {
@@ -53,46 +57,42 @@ Polymer({
 			for (i = 0; i < inputs.length; i++) {
 			    inputs[i].disabled = true;
 			}
-			// should save to db here
-			// this.reminder = {
-	  //           label: this.label,
-	  //           isActive: this.isActive,
-	  //           isEditable: this.isEditable,
-	  //           toCallName: this.toCallName,
-	  //           toCallNum: this.toCallNum
-	  //       };	
+	
 	        if (this.reminder.$key == null)	{
 	        	this.path = '/reminders/';
 		        var reminderRef = firebase.app('call-your-grandma').database().ref(this.path).push(this.reminder);
 		        var key = reminderRef.key;
 	        } else {
-			var reminderRef = firebase.app('call-your-grandma').database().ref(this.path + this.reminder.$key)
-																		.update({
-																			label: this.reminder.label,
-																            isActive: this.reminder.isActive,
-																            isEditable: this.reminder.isEditable,
-																            toCallName: this.reminder.toCallName,
-																            toCallNum: this.reminder.toCallNum
-																		});
+			var reminderRef = firebase.app('call-your-grandma').database()
+										.ref(this.path + this.reminder.$key)
+										.update({
+											label: this.reminder.label,
+								            isActive: this.reminder.isActive,
+								            isEditable: this.reminder.isEditable,
+								            toCallName: this.reminder.toCallName,
+								            toCallNum: this.reminder.toCallNum
+										});
 	        }		
 
 		
 			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "EDIT";
 			console.log();
-		} else {
+		} 
+		else {
 			this.reminder.isEditable = true;
 			var inputs = this.root.childNodes[2].getElementsByTagName("paper-input")
 			for (i = 0; i < inputs.length; i++) {
 			    inputs[i].disabled = false;
 			}
-			var reminderRef = firebase.app('call-your-grandma').database().ref(this.path + this.reminder.$key)
-																		.update({
-																			label: this.reminder.label,
-																            isActive: this.reminder.isActive,
-																            isEditable: this.reminder.isEditable,
-																            toCallName: this.reminder.toCallName,
-																            toCallNum: this.reminder.toCallNum
-																		});
+			var reminderRef = firebase.app('call-your-grandma').database()
+										.ref(this.path + this.reminder.$key)
+										.update({
+											label: this.reminder.label,
+								            isActive: this.reminder.isActive,
+								            isEditable: this.reminder.isEditable,
+								            toCallName: this.reminder.toCallName,
+								            toCallNum: this.reminder.toCallNum
+										});
 			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "SAVE";
 		}
 	},

@@ -59,7 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <reminder-list id="reminder" data="{{reminders}}" reminders="{{reminders}}"></reminder-list>
 
     <paper-button id="add" raised noink on-tap="addReminder"> ADD </paper-button>
-    <paper-button id="remove" raised noink on-tap="removeReminder"> REMOVE </paper-button>
+   <!--  <paper-button id="remove" raised noink on-tap="removeReminder"> REMOVE </paper-button> -->
 
   </template>
 
@@ -78,26 +78,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var reminder = {
             label: '',
             isActive: true,
-            isEditable: true,
+            isEditable: false,
             toCallName: '',
             toCallNum: ''
         };
         this.reminder = reminder;
-        // var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders').push(reminder);
+        var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders').push(reminder);
 
-        // var key = reminderRef.key;
-
-        // var path = '/reminders/' + key;
+        var key = reminderRef.key;
 
 
-        this.push('reminders', reminder);
+       // this.push('reminders', reminder);
         console.log('reminder ' + reminder.isEditable);
       },
-      removeReminder: function(e) {
-        var item = this.pop('reminders');
-        item.isActive = false;
-        alert(item.label + " cancelled.");
-      }
+      // removeReminder: function(e) {
+      //   var item = this.pop('reminders');
+      //   item.isActive = false;
+      //   var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/'+ item.$key).remove();
+      //   alert(item.label + " cancelled.");
+      // }
+      
       // addCard: function() {
       //   var numCards = Polymer.dom(this.root).children[1].children.length + 1;
 
