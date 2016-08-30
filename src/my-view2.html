@@ -83,7 +83,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             isActive: true,
             isEditable: false,
             toCallName: '',
-            toCallNum: ''
+            toCallNum: '',
+            time: this.getCurrentTime(),
+            date: this.getCurrentDate()
         };
         this.reminder = reminder;
         var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders').push(reminder);
@@ -91,10 +93,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var key = reminderRef.key;
 
         console.log('reminder ' + reminder.isEditable);
+      },
+      getCurrentTime: function() {
+            var date = new Date();
+            var hours = date.getHours();
+            if (hours > 12) {
+              return (hours-12) + ":" + date.getMinutes() + "pm";
+            }
+            return hours + ":" + date.getMinutes() + "am";
+      },
+      getCurrentDate: function() {
+        var date = new Date();
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
+        var month = monthNames[date.getMonth()];
+        return month + " " + date.getDate() + ", " + date.getFullYear();
       }
 
     });
 
+  //   function getCurrentTime() {
+  //     var hours = this.getHours();
+  //     if (hours > 12) {
+  //       return (hours-12) + ":" + this.getMinutes() + "pm";
+  //     }
+  //     return hours + ":" + this.getMinutes() + "am";
+  //   }
+
+  //   function getCurrentDate() {
+  //     var monthNames = ["January", "February", "March", "April", "May", "June",
+  //                 "July", "August", "September", "October", "November", "December"];
+  //     var month = monthNames[this.getMonth()];
+  //     return month + " " + this.getDate() + ", " + this.getFullYear();
+
+  // }
 
   </script>
 

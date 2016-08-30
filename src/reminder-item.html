@@ -1,5 +1,8 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-date-picker/paper-date-picker.html">
+<link rel="import" href="../bower_components/paper-time-picker/paper-time-picker.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html" >
 <dom-module id="reminder-item">
 
@@ -23,18 +26,47 @@
 		<h2> Reminder </h2>
 		<!-- reminder data -->
 		<firebase-document path="/reminders/" data="{{reminder}}"></firebase-document>
-		<reminder-data label="{{label}}" toCallName="{{toCallName}}" toCallNum="{{toCallNum}}" isEditable="{{isEditable}}">
-		</reminder-data>
+		<reminder-data label="{{label}}" toCallName="{{toCallName}}" toCallNum="{{toCallNum}}" isEditable="{{isEditable}}" date="{{date}}" time="{{time}}"></reminder-data>
 
 		<paper-input id="titleInput" name="title" disabled value="{{reminder.label}}">
+			<div prefix> Title&nbsp;</div>
+		</paper-input>
+		
+		<paper-input id="nameInput" name="toCallName" disabled value="{{reminder.toCallName}}">
 			<div prefix> Message&nbsp;</div>
 		</paper-input>
-		<paper-input id="nameInput" name="toCallName" disabled value="{{reminder.toCallName}}">
-			<div prefix> Call&nbsp;</div>
-		</paper-input>
+		
 		<paper-input id="numInput" name="toCallNum" disabled value="{{reminder.toCallNum}}">
-			<div prefix> At&nbsp;</div>
+			<div prefix> Number&nbsp;</div>
 		</paper-input>
+		
+		<paper-input on-tap="toggleDateDialog" disabled value="{{reminder.date}}">
+			<div prefix> Date&nbsp;</div>
+		</paper-input>
+
+		<paper-input on-tap="toggleTimeDialog" disabled value="{{reminder.time}}">
+			<div prefix> Time&nbsp;</div>
+		</paper-input>
+
+		<!-- DATE -->
+		<paper-dialog id="dateDialog">
+			<!-- <paper-date-picker narrow id="datePicker" min-date="[[reminder.date]]" date="{{reminder.date}}"></paper-date-picker> -->
+			  <div class="buttons">
+			    <paper-button dialog-dismiss>Cancel</paper-button>
+			    <paper-button on-tap="updateDate" dialog-confirm>OK</paper-button>
+			  </div>
+		</paper-dialog>	
+
+		<!-- TIME -->
+		<paper-dialog id="timeDialog">
+<!-- 		  <paper-date-picker id="datePicker" min-date="[[date]]" date="{{reminder.date}}"></paper-date-picker>
+ -->		  <paper-time-picker narrow id="timePicker" min-time="{{reminder.time}}" time="{{reminder.time}}"></paper-time-picker>
+			  <div class="buttons">
+			    <paper-button dialog-dismiss>Cancel</paper-button>
+			    <paper-button on-tap="updateTime" dialog-confirm>OK</paper-button>
+			  </div>
+		</paper-dialog>	
+
 		<paper-button on-tap="makeEditable" id="isEditable" name="isEditable" value="{{reminder.isEditable}}" link> EDIT </paper-button>
 		<paper-button on-tap="remove" link> REMOVE </paper-button>
 	</div>
@@ -49,6 +81,18 @@ Polymer({
 	},
 	remove: function() {
 		var reminderRef = firebase.app('call-your-grandma').database().ref("/reminders/" + this.reminder.$key).remove();
+	},
+	toggleDateDialog: function() {
+        this.$.dateDialog.open();
+	},
+	toggleTimeDialog: function() {
+        this.$.timeDialog.open();
+	},
+	updateTime: function() {
+		var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/' + this.reminder.$key).update({time: this.reminder.time});
+	},
+	updateDate: function() {
+		var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/' + this.reminder.$key).update({date: this.reminder.date});
 	},
 	makeEditable: function () {
 		this.path = '/reminders/'
@@ -71,12 +115,14 @@ Polymer({
 								            isActive: this.reminder.isActive,
 								            isEditable: this.reminder.isEditable,
 								            toCallName: this.reminder.toCallName,
-								            toCallNum: this.reminder.toCallNum
+								            toCallNum: this.reminder.toCallNum,
+								            time: this.reminder.time,
+								            date: this.reminder.date
 										});
 	        }		
 
 		
-			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "EDIT";
+			this.root.childNodes[2].getElementsByTagName("paper-button")[4].innerHTML = "EDIT";
 			console.log();
 		} 
 		else {
@@ -92,9 +138,11 @@ Polymer({
 								            isActive: this.reminder.isActive,
 								            isEditable: this.reminder.isEditable,
 								            toCallName: this.reminder.toCallName,
-								            toCallNum: this.reminder.toCallNum
+								            toCallNum: this.reminder.toCallNum,
+								            time: this.reminder.time,
+								            date: this.reminder.date
 										});
-			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "SAVE";
+			this.root.childNodes[2].getElementsByTagName("paper-button")[4].innerHTML = "SAVE";
 		}
 	},
 	notify: true

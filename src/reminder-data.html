@@ -9,7 +9,7 @@
 	        label: {
 	          type: String,
 	          reflectToAttribute: true,
-	          value: 'Call Grandma'
+	          value: ''
 	        },
 
 	        isActive: {
@@ -27,17 +27,45 @@
 	        toCallName: {
 	          type: String,
 	          notify: true,
-	          value: 'Grandma Nancy'
+	          value: ''
 	        },
 
 	        toCallNum: {
 	          type: String,
 	          notify: true,
-	          value: '+15165034558'
+	          value: ''
+	        },
+
+	        time: {
+	          type: String,
+	          notify: true,
+	          value: this.getCurrentTime()
+	        },
+
+	        date: {
+	          type: String,
+	          notify: true,
+	          value: this.getCurrentDate()
 	        }
 		}
 
 	});
+
+	function getCurrentTime() {
+		var hours = this.getHours();
+		if (hours > 12) {
+			return (hours-12) + ":" + this.getMinutes() + "pm";
+		}
+		return hours + ":" + this.getMinutes() + "am";
+	}
+
+	function getCurrentDate() {
+		var monthNames = ["January", "February", "March", "April", "May", "June",
+  						  "July", "August", "September", "October", "November", "December"];
+		var month = monthNames[this.getMonth()];
+		return month + " " + this.getDate() + ", " + this.getFullYear();
+
+	}
 </script>
 
 </dom-module>
