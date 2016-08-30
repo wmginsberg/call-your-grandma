@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="./reminder-item.html">
 <link rel="import" href="./reminder-list.html">
 
@@ -59,6 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <reminder-list id="reminder" data="{{reminders}}" reminders="{{reminders}}"></reminder-list>
 
     <paper-button id="add" raised noink on-tap="addReminder"> ADD </paper-button>
+    <paper-fab icon="add" on-tap="addReminder"></paper-fab>
    <!--  <paper-button id="remove" raised noink on-tap="removeReminder"> REMOVE </paper-button> -->
 
   </template>
@@ -97,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       //   var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/'+ item.$key).remove();
       //   alert(item.label + " cancelled.");
       // }
-      
+
       // addCard: function() {
       //   var numCards = Polymer.dom(this.root).children[1].children.length + 1;
 
