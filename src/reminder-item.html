@@ -25,16 +25,16 @@
 		<reminder-data label="{{label}}" toCallName="{{toCallName}}" toCallNum="{{toCallNum}}" isEditable="{{isEditable}}">
 		</reminder-data>
 
-		<paper-input id="titleInput" name="title" value="{{label}}">
+		<paper-input id="titleInput" name="title" disabled value="{{reminder.label}}">
 			<div prefix> Message&nbsp;</div>
 		</paper-input>
-		<paper-input id="nameInput" name="toCallName" value="{{toCallName}}">
+		<paper-input id="nameInput" name="toCallName" disabled value="{{reminder.toCallName}}">
 			<div prefix> Call&nbsp;</div>
 		</paper-input>
-		<paper-input id="numInput" name="toCallNum" value="{{toCallNum}}">
+		<paper-input id="numInput" name="toCallNum" disabled value="{{reminder.toCallNum}}">
 			<div prefix> At&nbsp;</div>
 		</paper-input>
-		<paper-button on-tap="makeEditable" id="isEditable" name="isEditable" value="{{isEditable}}" link> SAVE </paper-button>
+		<paper-button on-tap="makeEditable" id="isEditable" name="isEditable" value="{{reminder.isEditable}}" link> EDIT </paper-button>
 	</div>
 </template>
 
@@ -46,6 +46,7 @@ Polymer({
 		path: '/reminders'
 	},
 	makeEditable: function () {
+		this.path = '/reminders/'
 		if (this.reminder.isEditable) {
 			this.reminder.isEditable = false;
 			var inputs = this.root.childNodes[2].getElementsByTagName("paper-input")
@@ -53,21 +54,26 @@ Polymer({
 			    inputs[i].disabled = true;
 			}
 			// should save to db here
-			this.reminder = {
-	            label: this.label,
-	            isActive: this.reminder.isActive,
-	            isEditable: this.reminder.isEditable,
-	            toCallName: this.toCallName,
-	            toCallNum: this.toCallNum
-	        };	
-	        if (!this.path)	{
-	        	this.path = '/reminders';
+			// this.reminder = {
+	  //           label: this.label,
+	  //           isActive: this.isActive,
+	  //           isEditable: this.isEditable,
+	  //           toCallName: this.toCallName,
+	  //           toCallNum: this.toCallNum
+	  //       };	
+	        if (this.reminder.$key == null)	{
+	        	this.path = '/reminders/';
 		        var reminderRef = firebase.app('call-your-grandma').database().ref(this.path).push(this.reminder);
 		        var key = reminderRef.key;
-		        var path = '/reminders/' + key;
-	        	this.path = path;	
 	        } else {
-	        	var reminderRef = firebase.app('call-your-grandma').database().ref(this.path).update(this.reminder);
+			var reminderRef = firebase.app('call-your-grandma').database().ref(this.path + this.reminder.$key)
+																		.update({
+																			label: this.reminder.label,
+																            isActive: this.reminder.isActive,
+																            isEditable: this.reminder.isEditable,
+																            toCallName: this.reminder.toCallName,
+																            toCallNum: this.reminder.toCallNum
+																		});
 	        }		
 
 		
@@ -79,10 +85,19 @@ Polymer({
 			for (i = 0; i < inputs.length; i++) {
 			    inputs[i].disabled = false;
 			}
-			var reminderRef = firebase.app('call-your-grandma').database().ref(this.path).update(this.reminder);
+			var reminderRef = firebase.app('call-your-grandma').database().ref(this.path + this.reminder.$key)
+																		.update({
+																			label: this.reminder.label,
+																            isActive: this.reminder.isActive,
+																            isEditable: this.reminder.isEditable,
+																            toCallName: this.reminder.toCallName,
+																            toCallNum: this.reminder.toCallNum
+																		});
 			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "SAVE";
 		}
-	}
+	},
+	notify: true
+
 });
 </script>
 

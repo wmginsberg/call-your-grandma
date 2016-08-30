@@ -89,9 +89,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <app-toolbar>
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
               <div title>Call Your Grandma</div>
+              <paper-icon-button on-tap="login" icon="arrow-back"></paper-icon-button>
+              <firebase-auth app-name="call-your-grandma" id="auth" user="{{user}}" provider="google" on-error="handleError"></firebase-auth>
             </app-toolbar>
           </app-header>
-          <reminder-data reminders="{{reminders}}"></reminder-data>
+          <!-- <reminder-data reminders="{{reminders}}"></reminder-data> -->
           <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
             <my-view1 reminders="{{reminders}}" name="view1"></my-view1>
             <my-view2 reminders="{{reminders}}" name="view2"></my-view2>
@@ -132,6 +134,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // load page import on demand.
         this.importHref(
           this.resolveUrl('my-' + page + '.html'), null, null, true);
+      },
+
+      login: function() {
+        this.$.auth.signInWithPopup();  
       }
 
     });
