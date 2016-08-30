@@ -95,6 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       removeReminder: function(e) {
         var item = this.pop('reminders');
+        item.isActive = false;
         alert(item.label + " cancelled.");
       }
       // addCard: function() {
