@@ -26,46 +26,50 @@
 		<h2> Reminder </h2>
 		<!-- reminder data -->
 		<firebase-document path="/reminders/" data="{{reminder}}"></firebase-document>
-		<reminder-data label="{{label}}" toCallName="{{toCallName}}" toCallNum="{{toCallNum}}" isEditable="{{isEditable}}" date="{{date}}" time="{{time}}"></reminder-data>
+		<reminder-data label="{{label}}" toCallName="{{toCallName}}" toCallNum="{{toCallNum}}" isEditable="{{isEditable}}" date="{{date}}" time="{{time}}" dayNum="{{dayNum}}"></reminder-data>
 
 		<paper-input id="titleInput" name="title" disabled value="{{reminder.label}}">
-			<div prefix> Title&nbsp;</div>
+			<div prefix> # to Text Reminder&nbsp;</div>
 		</paper-input>
 		
 		<paper-input id="nameInput" name="toCallName" disabled value="{{reminder.toCallName}}">
-			<div prefix> Message&nbsp;</div>
+			<div prefix> Person to Call&nbsp;</div>
 		</paper-input>
 		
 		<paper-input id="numInput" name="toCallNum" disabled value="{{reminder.toCallNum}}">
-			<div prefix> Number&nbsp;</div>
+			<div prefix> Number of Person&nbsp;</div>
+		</paper-input>
+
+		<paper-input id="dayNumInput" name="dayNum" disabled value="{{reminder.dayNum}}">
+			<div prefix> Day of the Month&nbsp;</div>
 		</paper-input>
 		
-		<paper-input on-tap="toggleDateDialog" disabled value="{{reminder.date}}">
+<!-- 		<paper-input on-tap="toggleDateDialog" disabled value="{{reminder.date}}">
 			<div prefix> Date&nbsp;</div>
 		</paper-input>
 
 		<paper-input on-tap="toggleTimeDialog" disabled value="{{reminder.time}}">
 			<div prefix> Time&nbsp;</div>
-		</paper-input>
+		</paper-input> -->
 
 		<!-- DATE -->
-		<paper-dialog id="dateDialog">
-			<!-- <paper-date-picker narrow id="datePicker" min-date="[[reminder.date]]" date="{{reminder.date}}"></paper-date-picker> -->
+		<!-- <paper-dialog id="dateDialog">
+			 <paper-date-picker narrow id="datePicker" min-date="[[reminder.date]]" date="{{reminder.date}}"></paper-date-picker>
 			  <div class="buttons">
 			    <paper-button dialog-dismiss>Cancel</paper-button>
 			    <paper-button on-tap="updateDate" dialog-confirm>OK</paper-button>
 			  </div>
-		</paper-dialog>	
+		</paper-dialog>	-->
 
 		<!-- TIME -->
-		<paper-dialog id="timeDialog">
-<!-- 		  <paper-date-picker id="datePicker" min-date="[[date]]" date="{{reminder.date}}"></paper-date-picker>
- -->		  <paper-time-picker narrow id="timePicker" min-time="{{reminder.time}}" time="{{reminder.time}}"></paper-time-picker>
+		<!-- <paper-dialog id="timeDialog">
+		  <paper-date-picker id="datePicker" min-date="[[date]]" date="{{reminder.date}}"></paper-date-picker>
+		  <paper-time-picker narrow id="timePicker" min-time="{{reminder.time}}" time="{{reminder.time}}"></paper-time-picker>
 			  <div class="buttons">
 			    <paper-button dialog-dismiss>Cancel</paper-button>
 			    <paper-button on-tap="updateTime" dialog-confirm>OK</paper-button>
 			  </div>
-		</paper-dialog>	
+		</paper-dialog>	-->
 
 		<paper-button on-tap="makeEditable" id="isEditable" name="isEditable" value="{{reminder.isEditable}}" link> EDIT </paper-button>
 		<paper-button on-tap="remove" link> REMOVE </paper-button>
@@ -122,8 +126,8 @@ Polymer({
 	        }		
 
 		
-			this.root.childNodes[2].getElementsByTagName("paper-button")[4].innerHTML = "EDIT";
-			console.log();
+			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "EDIT";
+			this.sendSMS();
 		} 
 		else {
 			this.reminder.isEditable = true;
@@ -140,11 +144,26 @@ Polymer({
 								            toCallName: this.reminder.toCallName,
 								            toCallNum: this.reminder.toCallNum,
 								            time: this.reminder.time,
-								            date: this.reminder.date
+								            date: this.reminder.date,
+								            dayNum: this.reminder.dayNum
 										});
-			this.root.childNodes[2].getElementsByTagName("paper-button")[4].innerHTML = "SAVE";
+			this.root.childNodes[2].getElementsByTagName("paper-button")[0].innerHTML = "SAVE";
 		}
 	},
+	sendSMS: function() {
+		var firebaseRef = firebase.app('call-your-grandma').database().ref('/reminders/');
+		firebaseRef.once('value', function(snapshot) {
+		  // code to handle new value.
+		   snapshot.forEach(function(childSnapshot) {
+			    // key will be "fred" the first time and "barney" the second time
+			    // childData will be the actual contents of the child
+			   var childData = childSnapshot.val();
+			  
+			   console.log("Call " + childData['toCallName'] + ' at ' + childData['toCallNum'] + ' on ' + childData['date']);
+			  // sendSMS('+15165034558',childData.toCallName,childData.toCallNum);
+			});
+		});
+	},	
 	notify: true
 
 });

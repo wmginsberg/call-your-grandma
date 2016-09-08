@@ -1,6 +1,6 @@
 // require necessary packages
 var express = require('express');
-var anyDB = require('any-db');
+// var anyDB = require('any-db');
 var firebase = require('firebase');
 var app = express();
 //var my_app = firebase.initializeApp({});
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 })); 
 
 // connect the db
-var conn = anyDB.createConnection('sqlite3://callyourgrandma.db');
+// var conn = anyDB.createConnection('sqlite3://callyourgrandma.db');
 
 // Set the configuration for your app
 // TODO: Replace with your project's config object
@@ -32,61 +32,77 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 var database = firebase.database();
 
-database.ref().push({
-	label: 'Call Grandma',
-	isActive: true,
-	isEditable: false,
-	toCallName: 'Grandma',
-	toCallNum: '15165034558'
+var firebaseRef = database.ref();
+
+
+firebaseRef.on('value', function(snapshot) {
+  // code to handle new value.
+   snapshot.forEach(function(childSnapshot) {
+	    // key will be "fred" the first time and "barney" the second time
+	   var key = childSnapshot.key();
+	    // childData will be the actual contents of the child
+	   var childData = childSnapshot.val();
+	   sendSMS('+15165034558',childData.toCallName,childData.toCallNum);
+   });
 });
 
+// database.ref().push({
+// 	label: 'Call Grandma',
+// 	isActive: true,
+// 	isEditable: false,
+// 	toCallName: 'Grandma',
+// 	toCallNum: '15165034558'
+// });
 
 
-// Render index
-app.get('/', function (req, res) {
-  res.render("index.html");
-});
-
-app.get('/view1', function (req, res) {
-  res.render("index.html");
-});
-
-app.get('/view2', function (req, res) {
-  var sql = 'SELECT to_text, to_call_name, to_call_num, to_call_freq FROM CallerInfo';
-  var to_text, to_call_name, to_call_num, to_call_freq;
-  var reminders = [];
-  conn.query(sql)
-  .on('row',function(row) {
-  	to_text = row.to_text;
-    to_call_name = row.to_call_name;
-    to_call_num = row.to_call_num;
-    to_call_freq = row.to_call_freq;
-  	reminders.push([to_text,to_call_name,to_call_num,to_call_freq]);
-  })
-  .on('end', function(res) {
-  	res.json(reminders);
-  });
-});
 
 
-//Send an SMS text message on submit
-app.post('/submit', function (req, res) {
-	// res.send("Hello! " + req.body.phone);
-	//res.send(req.body.toText + " " + req.body.toCallName + " " + req.body.toCallNum + " " + req.body.toCallFreq);
 
-	// var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1, $2, $3, $4);',[req.body.toText, req.body.toCallName, req.body.toCallNum, "3"]);
-	// sendSMS(req.body.toText, req.body.toCallName, req.body.toCallNum);
-	// insertQuery.on('end', function() {});
+// // Render index
+// app.get('/', function (req, res) {
+//   res.render("index.html");
+// });
 
-	database.ref().push({
-		label: req.body.label,
-		isActive: req.body.isActive,
-		isEditable: req.body.isEditable,
-		toCallName: req.body.toCallName,
-		toCallNum: req.body.toCallNum
-	});	
+// app.get('/view1', function (req, res) {
+//   res.render("index.html");
+// });
 
-});
+// app.get('/view2', function (req, res) {
+//   var sql = 'SELECT to_text, to_call_name, to_call_num, to_call_freq FROM CallerInfo';
+//   var to_text, to_call_name, to_call_num, to_call_freq;
+//   var reminders = [];
+//   conn.query(sql)
+//   .on('row',function(row) {
+//   	to_text = row.to_text;
+//     to_call_name = row.to_call_name;
+//     to_call_num = row.to_call_num;
+//     to_call_freq = row.to_call_freq;
+//   	reminders.push([to_text,to_call_name,to_call_num,to_call_freq]);
+//   })
+//   .on('end', function(res) {
+//   	res.json(reminders);
+//   });
+// });
+
+
+// //Send an SMS text message on submit
+// app.post('/submit', function (req, res) {
+// 	// res.send("Hello! " + req.body.phone);
+// 	//res.send(req.body.toText + " " + req.body.toCallName + " " + req.body.toCallNum + " " + req.body.toCallFreq);
+
+// 	// var insertQuery = conn.query('INSERT INTO CallerInfo VALUES (NULL, $1, $2, $3, $4);',[req.body.toText, req.body.toCallName, req.body.toCallNum, "3"]);
+// 	// sendSMS(req.body.toText, req.body.toCallName, req.body.toCallNum);
+// 	// insertQuery.on('end', function() {});
+
+// 	database.ref().push({
+// 		label: req.body.label,
+// 		isActive: req.body.isActive,
+// 		isEditable: req.body.isEditable,
+// 		toCallName: req.body.toCallName,
+// 		toCallNum: req.body.toCallNum
+// 	});	
+
+// });
 
 // Listen on the port
 app.listen(3000, function () {

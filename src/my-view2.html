@@ -84,6 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             isEditable: false,
             toCallName: '',
             toCallNum: '',
+            dayNum: '',
             time: this.getCurrentTime(),
             date: this.getCurrentDate()
         };
@@ -97,10 +98,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       getCurrentTime: function() {
             var date = new Date();
             var hours = date.getHours();
-            if (hours > 12) {
-              return (hours-12) + ":" + date.getMinutes() + "pm";
+            var min = date.getMinutes();
+            if (min < 10) {
+              min = "0" + date.getMinutes().toString();
             }
-            return hours + ":" + date.getMinutes() + "am";
+            if (hours > 12) {
+              return (hours-12) + ":" + min + "pm";
+            }
+            return hours + ":" + min + "am";
       },
       getCurrentDate: function() {
         var date = new Date();
@@ -111,22 +116,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
     });
-
-  //   function getCurrentTime() {
-  //     var hours = this.getHours();
-  //     if (hours > 12) {
-  //       return (hours-12) + ":" + this.getMinutes() + "pm";
-  //     }
-  //     return hours + ":" + this.getMinutes() + "am";
-  //   }
-
-  //   function getCurrentDate() {
-  //     var monthNames = ["January", "February", "March", "April", "May", "June",
-  //                 "July", "August", "September", "October", "November", "December"];
-  //     var month = monthNames[this.getMonth()];
-  //     return month + " " + this.getDate() + ", " + this.getFullYear();
-
-  // }
 
   </script>
 
