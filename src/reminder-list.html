@@ -2,20 +2,7 @@
 <dom-module id="reminder-list">
 
 <template>
-<!-- <firebase-query
-    id="query"
-    app-name="call-your-grandma"
-    path="/"
-    data="{{reminders}}">
-</firebase-query>	 -->
-<!-- <firebase-document
-		  path="/reminders/{{path}}"
-		  data="{{reminders}}">
-</firebase-document>
 
-	<template is="dom-repeat" items="{{reminders}}" as="reminder">
-		<reminder-item id="reminder" reminder="{{reminder}}"></reminder-item>
-	</template> -->
 	<firebase-query path="/reminders" data="{{reminders}}" app-name="call-your-grandma"></firebase-query>
 	<template is="dom-repeat" items="{{reminders}}" as="reminder">
 	  <reminder-item reminder="{{reminder}}"></reminder-item>

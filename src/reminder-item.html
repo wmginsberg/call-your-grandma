@@ -10,17 +10,26 @@
 	<style>
 		div {
 			max-width: 80%;
-			color: grey;
 		}
       .card {
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         padding: 16px;
-        margin: 24px;
+        margin: 12px;
         border-radius: 5px;
         background-color: #fff;
         color: #757575;
+        max-width: 300px;
+        float: left;
       }
-
+      h2 {
+      	font: 24px;
+      	font-family: 'Roboto', 'Noto', sans-serif;
+      	color: black;
+      	margin: 5px;
+      }
+      paper-input {
+      	--paper-input-container-input: 12px;
+      }
 	</style>
 	<div class="card">
 		<h2> Reminder </h2>
@@ -40,7 +49,7 @@
 			<div prefix> Number of Person&nbsp;</div>
 		</paper-input>
 
-		<paper-input id="dayNumInput" name="dayNum" disabled value="{{reminder.dayNum}}">
+		<paper-input id="dayNumInput" name="dayNum" disabled max="31" min="1" value="{{reminder.dayNum}}">
 			<div prefix> Day of the Month&nbsp;</div>
 		</paper-input>
 		
