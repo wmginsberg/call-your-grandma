@@ -31,13 +31,18 @@ var database = firebase.database();
 var reminders = [];
 
 var firebaseRef = database.ref('/reminders/');
-firebaseRef.once('value', function(snapshot) {
+// firebaseRef.once('value', function(snapshot) {
+// 		  // code to handle new value.
+// 		   snapshot.forEach(function(childSnapshot) {
+// 			   var childData = childSnapshot.val();
+// 			   reminders.push(childData);
+// 			   createCron();
+// 			});
+// 		});
+firebaseRef.on('child-added', function(snapshot) {
 		  // code to handle new value.
-		   snapshot.forEach(function(childSnapshot) {
-			   var childData = childSnapshot.val();
-			   reminders.push(childData);
-			  createCron();
-			});
+		   reminders.push(snapshot);
+		   createMyCron(snapshot);
 		});
 
 
@@ -54,6 +59,21 @@ function createCron() {
 						},  null, true);
 
 	} 
+}
+
+function createMyCron(data) {
+//	for( var i = 0; i < reminders.length; i++ ) {
+		var dayNum = data.dayNum;//reminders[i]['dayNum'];
+		var toCallName =  data.toCallName;//reminders[i]['toCallName'];
+		var toCallNum = data.toCallNum;//reminders[i]['toCallNum'];
+		var toTextNum = data.label;//reminders[i]['label'];
+		var cron = "* * " + dayNum + " * *";
+		var textJob = new cronJob( cron, function() {
+							var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
+							client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});
+						},  null, true);
+
+//	} 
 }
 
 
