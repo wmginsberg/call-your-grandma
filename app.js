@@ -55,6 +55,7 @@ function sendNotifications() {
 			var toCallNum = reminders[i]['toCallNum'];
 			var toTextNum = reminders[i]['label'];
 			var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
+			console.log(msg);
 			client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});			
 		}
 		// var cron = "* * " + dayNum + " * *";
