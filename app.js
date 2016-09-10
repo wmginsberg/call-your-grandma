@@ -42,7 +42,7 @@ var firebaseRef = database.ref('/reminders');
 firebaseRef.on("child_added", function(snapshot) {
 		  // code to handle new value.
 		   reminders.push(snapshot);
-		   createMyCron(snapshot);
+		  // createMyCron(snapshot);
 		});
 
 
