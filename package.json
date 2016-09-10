@@ -1,0 +1,39 @@
+{
+  "name": "call-your-grandma-7777",
+  "description": "Our sample Node to Heroku app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cron": "^1.1.0",
+    "express": "^4.14.0",
+    "firebase": "^3.3.2",
+    "polymer": "^0.5.0",
+    "twilio": "^2.10.0"
+  },
+  "engines": {
+    "node": "6.4.0",
+    "npm": "3.10.3"
+  },
+  "version": "1.0.0",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wmginsberg/call-your-grandma.git"
+  },
+  "keywords": [
+    "heroku",
+    "app"
+  ],
+  "author": "wmginsberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wmginsberg/call-your-grandma/issues"
+  },
+  "homepage": "https://github.com/wmginsberg/call-your-grandma#readme"
+}

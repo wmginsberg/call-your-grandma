@@ -19,6 +19,9 @@ var config = {
 		};
 firebase.initializeApp(config);
 
+
+var port = process.env.PORT || 8080;
+
 // Get a reference to the database service
 var database = firebase.database();
 var reminders = [];
@@ -50,8 +53,10 @@ function createCron() {
 }
 
 
+app.get('/', function (req, res) {
+  res.render("index.html");
+});
 
-
-var server = app.listen(3000, function() {
-  console.log('Listening on port %d', server.address().port);
+var server = app.listen(port /*3000*/, function() {
+  console.log('Listening on port '+ port);//server.address().port);
 });
