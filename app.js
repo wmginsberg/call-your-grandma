@@ -54,7 +54,7 @@ function createCron() {
 
 
 app.get('/', function (req, res) {
-  res.render("index.html");
+  res.render("./index.html");
 });
 
 var server = app.listen(port /*3000*/, function() {
