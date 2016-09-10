@@ -3,7 +3,8 @@
   "description": "Our sample Node to Heroku app",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "postinstall": "bower install && gulp"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
