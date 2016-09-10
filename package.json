@@ -31,7 +31,8 @@
   },
   "keywords": [
     "heroku",
-    "app"
+    "app",
+    "cron"
   ],
   "author": "wmginsberg",
   "license": "ISC",

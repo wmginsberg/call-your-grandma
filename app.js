@@ -42,21 +42,26 @@ var firebaseRef = database.ref('/reminders');
 firebaseRef.on("child_added", function(snapshot) {
 		  // code to handle new value.
 		   reminders.push(snapshot);
-		   createMyCron(snapshot);
+		   sendNotifications(snapshot);
 		});
 
 
-function createCron() {
+function sendNotifications() {
 	for( var i = 0; i < reminders.length; i++ ) {
+		var today = new Date();
 		var dayNum = reminders[i]['dayNum'];
-		var toCallName = reminders[i]['toCallName'];
-		var toCallNum = reminders[i]['toCallNum'];
-		var toTextNum = reminders[i]['label'];
-		var cron = "* * " + dayNum + " * *";
-		var textJob = new cronJob( cron, function() {
-							var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
-							client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});
-						},  null, true);
+		if (dayNum == today.getDate()) {
+			var toCallName = reminders[i]['toCallName'];
+			var toCallNum = reminders[i]['toCallNum'];
+			var toTextNum = reminders[i]['label'];
+			var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
+			client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});			
+		}
+		// var cron = "* * " + dayNum + " * *";
+		// var textJob = new cronJob( cron, function() {
+		// 					var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
+		// 					client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});
+		// 				},  null, true);
 
 	} 
 }
