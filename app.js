@@ -30,7 +30,7 @@ var port = process.env.PORT || 8080;
 var database = firebase.database();
 var reminders = [];
 
-var firebaseRef = database.ref('/reminders/');
+var firebaseRef = database.ref('/reminders');
 // firebaseRef.once('value', function(snapshot) {
 // 		  // code to handle new value.
 // 		   snapshot.forEach(function(childSnapshot) {
