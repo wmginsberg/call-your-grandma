@@ -59,5 +59,5 @@ app.get('/', function (req, res) {
 });
 
 var server = app.listen(port /*3000*/, function() {
-  console.log('Listening on port '+ port);//server.address().port);
+  console.log('Listening on port '+ process.env.PORT || 8080);//server.address().port);
 });
