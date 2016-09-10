@@ -39,7 +39,7 @@ var firebaseRef = database.ref('/reminders');
 // 			   createCron();
 // 			});
 // 		});
-firebaseRef.on('child-added', function(snapshot) {
+firebaseRef.on("child-added", function(snapshot) {
 		  // code to handle new value.
 		   reminders.push(snapshot);
 		   createMyCron(snapshot);
