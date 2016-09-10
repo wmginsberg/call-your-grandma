@@ -3,9 +3,11 @@ var client = require('./node_modules/twilio')('ACff1ac681b33572df5f79ebfe345cc37
 var cronJob = require('cron').CronJob;
 var express = require('express');
 var bodyParser = require('body-parser');
+var favicon = require('static-favicon');
+
 var app = express();
 app.use(express.static(__dirname + '/'));
-app.use(favicon(__dirname + '/favicon.ico'));
+app.use(favicon('favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   			extended: true
@@ -60,5 +62,5 @@ app.get('/', function (req, res) {
 });
 
 var server = app.listen(port /*3000*/, function() {
-  console.log('Listening on port '+ process.env.PORT || 8080);//server.address().port);
+  console.log('Listening on port '+ port || 8080);//server.address().port);
 });

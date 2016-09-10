@@ -11,6 +11,7 @@
     "express": "^4.14.0",
     "firebase": "^3.3.2",
     "polymer": "^0.5.0",
+    "static-favicon": "^2.0.0-alpha",
     "twilio": "^2.10.0"
   },
   "engines": {
