@@ -4,6 +4,7 @@ var cronJob = require('cron').CronJob;
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+app.use(express.static(__dirname + '/'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   			extended: true
@@ -54,7 +55,7 @@ function createCron() {
 
 
 app.get('/', function (req, res) {
-  res.render("./index.html");
+  res.render("index.html");
 });
 
 var server = app.listen(port /*3000*/, function() {
