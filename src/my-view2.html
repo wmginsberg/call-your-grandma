@@ -58,10 +58,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         bottom: 30px; 
       }
 
+      #loginText {
+        font-style: italic;
+        color: grey;
+        margin: 24px;
+      }
     </style>
-
-    <reminder-list id="reminder" data="{{reminders}}" reminders="{{reminders}}"></reminder-list>
-
+    <template is="dom-if" if="{{signedIn}}">
+      <p id="loginText"> Logged in as [[user.email]]. Click the person icon in the top right to change this. </p>
+    </template>
+    <template is="dom-if" if="{{!signedIn}}">
+      <p id="loginText"> You are not logged in. Please click the person icon in the top right to log in. </p>
+    </template>
+    <reminder-list user="{{user}}" signed-in="{{signedIn}}" id="reminder" data="{{reminders}}" reminders="{{reminders}}"></reminder-list>
     <paper-fab icon="add" on-tap="addReminder"></paper-fab>
 
   </template>
@@ -75,6 +84,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         reminders: {
           type: Array,
           value: function() { return []; }
+        },
+        user: {
+          type: String,
+          value: ''
+        },
+        signedIn: {
+          type: String,
+          value: ''
         }
       },
       addReminder: function(e) {
@@ -89,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             date: this.getCurrentDate()
         };
         this.reminder = reminder;
-        var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders').push(reminder);
+        var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/'+ this.$.reminder.user.uid +'/').push(reminder);
 
         var key = reminderRef.key;
 

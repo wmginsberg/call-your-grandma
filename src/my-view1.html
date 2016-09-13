@@ -30,17 +30,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         padding: 10px;
-        background-color: cornflowerblue; 
+        background-color: #9c00b2; 
         -#9c00b2;
+        height: 100%;
       }
       .card {
         --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-        padding: 16px;
-        margin: 24px auto;
+        padding: 5px;
+        margin: 10px auto;
         background-color: #9c00b2;
         color: #757575;
         border: 5px solid white;
-        max-width: 750px;
+/*        max-width: 750px;
+        min-width: 50%;*/
       }
 /*      h1 {
         font-size: 40px;
@@ -49,12 +51,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }*/
       .major-announcement {
         font-family: Impact;
-        font-size: 72px;
+        font-size: 42px;
         color: #fff;
       }
       .minor-announcement {
         font-family: Helvetica, sans-serif;
-        font-size: 41px;
+        font-size: 26px;
         font-weight: 200;
         color: #fff;
       }
@@ -69,110 +71,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0px;
         text-align: center;
       }
-      
-      paper-dropdown-menu >, gold-phone-input, paper-input {
-        max-width: 50%;
+      table { 
         margin: auto;
-        color: white;
+        max-width: 575px;
       }
-      form, fieldset {
+      .gifDiv {
+        margin: 25px auto;
+      }
+
+      .musicDiv {
         margin: auto;
-        max-width: 500px;
-        border: 0px white;
-        color: white;
       }
-      p, paper-radio-group, paper-radio-button {
-        max-width: 500px;
-        margin: auto;
-        color: white;
-        font: Helvetica;
-      }
-      paper-radio-button {
-        color: white;
-      }
-      paper-button {
-        padding:0;
-        background-color: white;
-        border-radius: 0px;
-        color: black;
-      }
-      paper-button::shadow .button-content {
-        padding:0;
-      }
-      paper-button button {
-        padding:1em;
-        background-color: transparent;
-        border-color: transparent;
-      }
-      paper-button button::-moz-focus-inner {
-        border: 0;
+
+      img {
+        width: 100%;
       }
 
     </style>
-    <div class="card">
-      <h2 class="minor-announcement">HAVE YOU CALLED YOUR</h2>
-      <h1 class="major-announcement">GRANDMA TODAY?</h1>
-    </div>
-
-    <form is="iron-form" method="POST" action="http://localhost:3000/submit" id="form">
-      <fieldset>
-        
-        <br>
-        <table>
-          <tr>
-            <td>
-              <label>Your phone number</label>
-            </td>
-            <td>
-              <paper-input no-label-float label="-(333)-333-3333" type="text" id="phone" auto-validate pattern="[0-9]*" error-message="numbers only!" name="toText">
-                <div prefix>+1</div>
-              </paper-input>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>Who you're calling</label>
-            </td>
-            <td>
-              <paper-input no-label-float label="Grandma" type="text" id="who" name="toCallName"></paper-input>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>Their phone number</label>
-            </td>
-            <td>
-              <paper-input no-label-float label="-(444)-444-4444" type="text" id="who_number" auto-validate pattern="[0-9]*" error-message="numbers only!" name="toCallNum">
-                <div prefix>+1</div>
-              </paper-input>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>How many times per week?</label>
-            </td>
-            <td>
-              <paper-radio-group name="toCallFreq" selected="opt1">
-                <paper-radio-button value="1" name="opt1">1</paper-radio-button>
-                <paper-radio-button value="2" name="opt2">2</paper-radio-button>
-                <paper-radio-button value="3" name="opt3">3</paper-radio-button>
-                <paper-radio-button value="4" name="opt4">4</paper-radio-button>
-              </paper-radio-group>
-            </td>
-          </tr>
-        </table>
-       
-        <br>
-       
-
-        <!-- <button on-tap="submitForm" type="submit" class="no-style">    -->       
-        <paper-button raised noink>
-          <button type="submit">SUBMIT</button>
-        </paper-button>
-   <!--      </button>  -->
-
-      </fieldset>
-    </form>
+    <table>
+      <tr>
+        <td>
+          <div class="card">
+            <h2 class="minor-announcement">HAVE YOU CALLED YOUR</h2>
+            <h1 class="major-announcement">GRANDMA TODAY?</h1>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="gifDiv">
+            <img src="../images/callyourgrandma_gif.gif"/>
+          <div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="musicDiv">
+            <audio controls>
+              <source src="../sounds/callyourgirlfriend.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio>
+          <div>
+        </td>
+      </tr>
+    </table>
 
 
   </template>

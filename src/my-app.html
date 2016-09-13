@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
@@ -44,6 +45,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           --paper-icon-button-ink-color: white;
         }
 
+        app-drawer {
+          --app-drawer-width: 120px;
+        }
         .drawer-list {
           margin: 0 20px;
         }
@@ -78,9 +82,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-drawer>
           <app-toolbar>Menu</app-toolbar>
           <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="view1" href="/view1">Add Reminders</a>
-            <a name="view2" href="/view2">Cancel Reminders</a>
-            <a name="view3" href="/view3">About</a>
+            <a name="view1" href="/view1">About</a>
+            <a name="view2" href="/view2">Reminders</a>
+            <a name="view3" href="/view3">Donate</a>
           </iron-selector>
         </app-drawer>
 
@@ -91,14 +95,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <app-toolbar>
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
               <div title>Call Your Grandma</div>
-              <paper-icon-button icon="lock-open" on-tap="login"></paper-icon-button>
-              <firebase-auth app-name="call-your-grandma" id="auth" user="{{user}}" provider="google" on-error="handleError"></firebase-auth>
+              <paper-icon-button id="loginicon" icon="social:person" on-tap="login"></paper-icon-button>
+              <firebase-auth app-name="call-your-grandma" id="auth" user="{{user}}" signed-in="{{signedIn}}" provider="google" on-error="handleError"></firebase-auth>
             </app-toolbar>
           </app-header>
           <!-- <reminder-data reminders="{{reminders}}"></reminder-data> -->
           <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
             <my-view1 reminders="{{reminders}}" name="view1"></my-view1>
-            <my-view2 reminders="{{reminders}}" name="view2"></my-view2>
+            <my-view2 reminders="{{reminders}}" user="{{user}}" signed-in="{{signedIn}}" name="view2"></my-view2>
             <my-view3 reminders="{{reminders}}" name="view3"></my-view3>
           </iron-pages>
 
@@ -121,6 +125,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           reflectToAttribute: true,
           observer: '_pageChanged'
         },
+        user: {
+          type: String,
+          value: ''
+        }
 
       },
 
@@ -140,6 +148,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       login: function() {
         this.$.auth.signInWithPopup();  
+        this.$.loginicon.icon = "social:person";
       }
 
     });

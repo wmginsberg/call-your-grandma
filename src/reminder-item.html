@@ -34,23 +34,23 @@
 	<div class="card">
 		<h2> Reminder </h2>
 		<!-- reminder data -->
-		<firebase-document path="/reminders/" data="{{reminder}}"></firebase-document>
+		<firebase-document id="firebaseDoc" path="/reminders/[[user.uid]]" user="{{user}}" data="{{reminder}}"></firebase-document>
 		<reminder-data label="{{label}}" toCallName="{{toCallName}}" toCallNum="{{toCallNum}}" isEditable="{{isEditable}}" date="{{date}}" time="{{time}}" dayNum="{{dayNum}}"></reminder-data>
 
-		<paper-input id="titleInput" name="title" disabled value="{{reminder.label}}">
-			<div prefix> # to Text Reminder&nbsp;</div>
+		<paper-input id="titleInput" placeholder="+15165551234" name="title" disabled value="{{reminder.label}}">
+			<div prefix> text me at&nbsp;</div>
 		</paper-input>
 		
-		<paper-input id="nameInput" name="toCallName" disabled value="{{reminder.toCallName}}">
-			<div prefix> Person to Call&nbsp;</div>
+		<paper-input id="nameInput" placeholder="Grandma" name="toCallName" disabled value="{{reminder.toCallName}}">
+			<div prefix> to call&nbsp;</div>
 		</paper-input>
 		
-		<paper-input id="numInput" name="toCallNum" disabled value="{{reminder.toCallNum}}">
-			<div prefix> Number of Person&nbsp;</div>
+		<paper-input id="numInput" placeholder="+12125554321" name="toCallNum" disabled value="{{reminder.toCallNum}}">
+			<div prefix> at&nbsp;</div>
 		</paper-input>
 
-		<paper-input id="dayNumInput" name="dayNum" disabled max="31" min="1" value="{{reminder.dayNum}}">
-			<div prefix> Day of the Month&nbsp;</div>
+		<paper-input id="dayNumInput" placeholder="day of the month" name="dayNum" disabled max="31" min="1" value="{{reminder.dayNum}}">
+			<div prefix> every&nbsp;</div>
 		</paper-input>
 		
 <!-- 		<paper-input on-tap="toggleDateDialog" disabled value="{{reminder.date}}">
@@ -93,7 +93,7 @@ Polymer({
 		path: '/reminders'
 	},
 	remove: function() {
-		var reminderRef = firebase.app('call-your-grandma').database().ref("/reminders/" + this.reminder.$key).remove();
+		var reminderRef = firebase.app('call-your-grandma').database().ref("/reminders/" + this.$.firebaseDoc.user.uid + '/' + this.reminder.$key).remove();
 	},
 	toggleDateDialog: function() {
         this.$.dateDialog.open();
@@ -102,13 +102,13 @@ Polymer({
         this.$.timeDialog.open();
 	},
 	updateTime: function() {
-		var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/' + this.reminder.$key).update({time: this.reminder.time});
+		var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/' + this.$.firebaseDoc.user.uid + '/' + this.reminder.$key).update({time: this.reminder.time});
 	},
 	updateDate: function() {
-		var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/' + this.reminder.$key).update({date: this.reminder.date});
+		var reminderRef = firebase.app('call-your-grandma').database().ref('/reminders/' + this.$.firebaseDoc.user.uid + '/' + this.reminder.$key).update({date: this.reminder.date});
 	},
 	makeEditable: function () {
-		this.path = '/reminders/'
+		this.path = '/reminders/' + this.$.firebaseDoc.user.uid +'/';
 		if (this.reminder.isEditable) {
 			this.reminder.isEditable = false;
 			var inputs = this.root.childNodes[2].getElementsByTagName("paper-input")
@@ -117,12 +117,12 @@ Polymer({
 			}
 	
 	        if (this.reminder.$key == null)	{
-	        	this.path = '/reminders/';
+	        	this.path = '/reminders/' + this.$.firebaseDoc.user.uid +'/';
 		        var reminderRef = firebase.app('call-your-grandma').database().ref(this.path).push(this.reminder);
 		        var key = reminderRef.key;
 	        } else {
 			var reminderRef = firebase.app('call-your-grandma').database()
-										.ref(this.path + this.reminder.$key)
+										.ref('/reminders/' + this.$.firebaseDoc.user.uid +'/'+ this.reminder.$key)
 										.update({
 											label: this.reminder.label,
 								            isActive: this.reminder.isActive,
@@ -160,7 +160,7 @@ Polymer({
 		}
 	},
 	sendSMS: function() {
-		var firebaseRef = firebase.app('call-your-grandma').database().ref('/reminders/');
+		var firebaseRef = firebase.app('call-your-grandma').database().ref('/reminders/' + this.$.firebaseDoc.user.uid +'/');
 		firebaseRef.once('value', function(snapshot) {
 		  // code to handle new value.
 		   snapshot.forEach(function(childSnapshot) {

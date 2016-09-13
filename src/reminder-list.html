@@ -3,9 +3,9 @@
 
 <template>
 
-	<firebase-query path="/reminders" data="{{reminders}}" app-name="call-your-grandma"></firebase-query>
+	<firebase-query path="/reminders/[[user.uid]]" data="{{reminders}}" app-name="call-your-grandma"></firebase-query>
 	<template is="dom-repeat" items="{{reminders}}" as="reminder">
-	  <reminder-item reminder="{{reminder}}"></reminder-item>
+	  <reminder-item user="{{user}}"reminder="{{reminder}}"></reminder-item>
 	</template>
 </template>
 

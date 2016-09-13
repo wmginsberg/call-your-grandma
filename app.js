@@ -30,7 +30,7 @@ var port = process.env.PORT || 8080;
 var database = firebase.database();
 var reminders = [];
 
-var firebaseRef = database.ref('/reminders');
+var firebaseRef = database.ref('/reminders/-KRKZ7UN1ICCSN0Rg4Nc');
 // firebaseRef.once('value', function(snapshot) {
 // 		  // code to handle new value.
 // 		   snapshot.forEach(function(childSnapshot) {
@@ -39,21 +39,29 @@ var firebaseRef = database.ref('/reminders');
 // 			   createCron();
 // 			});
 // 		});
-firebaseRef.on("child_added", function(snapshot) {
+firebaseRef.once("value").then(function(data) {
 		  // code to handle new value.
-		   reminders.push(snapshot);
-		   sendNotifications(snapshot);
+		   reminders.push(data);
+		   console.log(data);
+		   console.log(data.val());
+		   sendNotifications([data.val()]);
 		});
 
 
-function sendNotifications() {
-	for( var i = 0; i < reminders.length; i++ ) {
+function sendNotifications(dataVals) {
+	console.log("hi");
+	for( var i = 0; i < dataVals.length; i++ ) {
+		console.log("DV " + dataVals[i]);
 		var today = new Date();
-		var dayNum = reminders[i]['dayNum'];
+		var dayNum = dataVals[i].dayNum;//reminders[i]['dayNum'];
+		console.log("element day number " + dayNum);
+		console.log("today's date " + today.getDate());
+		console.log("dataVals " + dataVals[i]);
 		if (dayNum == today.getDate()) {
-			var toCallName = reminders[i]['toCallName'];
-			var toCallNum = reminders[i]['toCallNum'];
-			var toTextNum = reminders[i]['label'];
+			var toCallName = dataVals[i].toCallName;//reminders[i]['toCallName'];
+			var toCallNum = dataVals[i].toCallNum;//reminders[i]['toCallNum'];
+			var toTextNum = dataVals[i].label;//reminders[i]['label'];
+			console.log(toTextNum);
 			var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
 			console.log(msg);
 			client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});			
@@ -81,6 +89,7 @@ function createMyCron(data) {
 
 //	} 
 }
+
 
 
 app.get('/', function (req, res) {
