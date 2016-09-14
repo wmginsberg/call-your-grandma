@@ -75,7 +75,7 @@ function sendNotification(data) {
 		console.log(toTextNum);
 		var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
 		console.log(msg);
-		//client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});			
+		client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});			
 	//}
 }
 
