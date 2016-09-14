@@ -147,7 +147,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       login: function() {
-        this.$.auth.signInWithPopup();  
+        this.$.auth.signInWithPopup()
+            .then(function(response) { 
+              console.log("success") 
+            })
+            .catch(function(error) { 
+              console.log("fail")
+            });  
+
         this.$.loginicon.icon = "social:person";
       }
 
