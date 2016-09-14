@@ -49,13 +49,16 @@ firebaseRef.on("value", function(data) {
 
 function sendNotification(data) {
 	console.log("sendNotifications");
-	var toCallName = data['toCallName'];//reminders[i]['toCallName'];
-	var toCallNum = data['toCallNum'];//reminders[i]['toCallNum'];
-	var toTextNum = data['label'];//reminders[i]['label'];
-	console.log(toTextNum);
-	var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
-	console.log(msg);
-	client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});			
+	var isActive = data['isActive'];
+	if (!isActive) {
+		var toCallName = data['toCallName'];//reminders[i]['toCallName'];
+		var toCallNum = data['toCallNum'];//reminders[i]['toCallNum'];
+		var toTextNum = data['label'];//reminders[i]['label'];
+		console.log(toTextNum);
+		var msg = 'Call ' + toCallName + ' at ' + toCallNum + ' today!';
+		console.log(msg);
+		client.sendMessage( { to:toTextNum, from:'+14243206951', body:msg}, function( err, data ) {});			
+	}
 }
 
 

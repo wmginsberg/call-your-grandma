@@ -35,7 +35,7 @@
 		<h2> Reminder </h2>
 		<!-- reminder data -->
 		<firebase-document id="firebaseDoc" path="/reminders/[[user.uid]]" user="{{user}}" data="{{reminder}}"></firebase-document>
-		<reminder-data label="{{label}}" toCallName="{{toCallName}}" toCallNum="{{toCallNum}}" isEditable="{{isEditable}}" date="{{date}}" time="{{time}}" dayNum="{{dayNum}}"></reminder-data>
+		<reminder-data label="{{label}}" toCallName="{{toCallName}}" toCallNum="{{toCallNum}}" isEditable="{{isEditable}}" isActive="{{isActive}}" date="{{date}}" time="{{time}}" dayNum="{{dayNum}}"></reminder-data>
 
 		<paper-input id="titleInput" placeholder="+15165551234" name="title" disabled value="{{reminder.label}}">
 			<div prefix> text me at&nbsp;</div>
@@ -111,6 +111,7 @@ Polymer({
 		this.path = '/reminders/' + this.$.firebaseDoc.user.uid +'/';
 		if (this.reminder.isEditable) {
 			this.reminder.isEditable = false;
+			this.reminder.isActive = false;
 			var inputs = this.root.childNodes[2].getElementsByTagName("paper-input")
 			for (i = 0; i < inputs.length; i++) {
 			    inputs[i].disabled = true;
@@ -140,6 +141,7 @@ Polymer({
 		} 
 		else {
 			this.reminder.isEditable = true;
+			this.reminder.isActive = true;
 			var inputs = this.root.childNodes[2].getElementsByTagName("paper-input")
 			for (i = 0; i < inputs.length; i++) {
 			    inputs[i].disabled = false;
