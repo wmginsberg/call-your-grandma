@@ -16,15 +16,18 @@ var database = firebase.database();
 var firebaseRef = database.ref('/reminders/');
 
 function sendTodaysTexts() {
-	console.log("STT");
+	console.log("STT-");
 	firebaseRef.once("value").then(function(data) {
 	  // code to handle new value.
+	   console.log("inside fb call");
 	   var today = new Date();
 	   var obj = data.val();
 	   var uids = [];
 	   for (var prop in obj) {
 		  uids.push(prop);
+		  console.log("uid " + uids);
 		  for (var o in obj[prop]) {
+		  	console.log("today's date " + today.getDate());
 		    if (obj[prop][o]['dayNum'] == today.getDate()) {
 		    	console.log('found one for today');
 		    	sendNotification(obj[prop][o]);
