@@ -31,21 +31,21 @@ var database = firebase.database();
 var reminders = [];
 var firebaseRef = database.ref('/reminders/');
 
-firebaseRef.on("value", function(data) {
-  // code to handle new value.
-   var today = new Date();
-   var obj = data.val();
-   var uids = [];
-   for (var prop in obj) {
-	  uids.push(prop);
-	  for (var o in obj[prop]) {
-	    if (obj[prop][o]['dayNum'] == today.getDate()) {
-	    	sendNotification(obj[prop][o]);
+// firebaseRef.on("value", function(data) {
+//   // code to handle new value.
+//    var today = new Date();
+//    var obj = data.val();
+//    var uids = [];
+//    for (var prop in obj) {
+// 	  uids.push(prop);
+// 	  for (var o in obj[prop]) {
+// 	    if (obj[prop][o]['dayNum'] == today.getDate()) {
+// 	    	sendNotification(obj[prop][o]);
 
-	    }
-	  }
-	}
-});
+// 	    }
+// 	  }
+// 	}
+// });
 
 function sendTodaysTexts() {
 	firebaseRef.once("value").then(function(data) {
@@ -102,3 +102,5 @@ app.get('/', function (req, res) {
 var server = app.listen(port /*3000*/, function() {
   console.log('Listening on port '+ port || 8085);//server.address().port);
 });
+
+sendTodaysTexts();
