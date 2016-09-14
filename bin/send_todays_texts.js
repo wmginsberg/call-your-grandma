@@ -16,6 +16,7 @@ var database = firebase.database();
 var firebaseRef = database.ref('/reminders/');
 
 function sendTodaysTexts() {
+	console.log("STT");
 	firebaseRef.once("value").then(function(data) {
 	  // code to handle new value.
 	   var today = new Date();
@@ -25,6 +26,7 @@ function sendTodaysTexts() {
 		  uids.push(prop);
 		  for (var o in obj[prop]) {
 		    if (obj[prop][o]['dayNum'] == today.getDate()) {
+		    	console.log('found one for today');
 		    	sendNotification(obj[prop][o]);
 		    }
 		  }
