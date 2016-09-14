@@ -1,4 +1,5 @@
 #! /app/bin/node
+
 var client = require('./node_modules/twilio')('ACff1ac681b33572df5f79ebfe345cc371', 'd1e91c6aabb4864a8a4d5bb7f1994ee1');
 var firebase = require('firebase');
 var config = {
@@ -16,7 +17,7 @@ var database = firebase.database();
 var firebaseRef = database.ref('/reminders/');
 
 function sendTodaysTexts() {
-	console.log("STT-");
+	console.log("STT-" + firebaseRef);
 	firebaseRef.once("value").then(function(data) {
 	  // code to handle new value.
 	   console.log("inside fb call");
@@ -34,7 +35,11 @@ function sendTodaysTexts() {
 		    }
 		  }
 		}
+	}, 
+	function(error) {
+		console.error(error);
 	});
+	console.log("errrrrror");
 }
 
 
