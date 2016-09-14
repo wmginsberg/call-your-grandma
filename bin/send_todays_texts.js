@@ -52,6 +52,7 @@ function sendNotification(data) {
 
 function sayHello() {
   console.log('Hello');
+  sendTodaysTexts();
 }
 
 sayHello();
