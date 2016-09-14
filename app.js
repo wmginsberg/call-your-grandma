@@ -31,7 +31,7 @@ var database = firebase.database();
 var reminders = [];
 var firebaseRef = database.ref('/reminders/');
 
-firebaseRef.once("value").then(function(data) {
+firebaseRef.on("value", function(data) {
   // code to handle new value.
    var today = new Date();
    var obj = data.val();
