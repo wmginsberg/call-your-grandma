@@ -27,6 +27,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: #fff;
         color: #757575;
       }
+      #purple {
+        color: #9c00b2;
+        font-weight: 600;
+      }
       .circle {
         display: inline-block;
         height: 64px;
@@ -57,7 +61,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
-      <p>callyourgrandma.today is a free service, but it is not free to run. it costs money to keep this site online and to send every text reminder to all of our users. please consider donating $1 if you plan on using the service.
+      <p><span id="purple">callyourgrandma.today</span> is a ~free service~, <br />
+        but it is <i>not free</i> for us to run. <br />
+        it costs $money$ to keep this site online <br />
+        it costs $money$ to send reminders to all of our users. <br />
+        <br />
+        please consider donating $1 if you plan on using the service.
       </p>
       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
           <input type="hidden" name="cmd" value="_s-xclick">
@@ -71,7 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <img src="../images/venmo-logo-2.png"/>
         </a>
       </div>
-      <p> click one of the buttons above to donate $1 </p>
+      <p> <span id="purple">click one of the buttons</span> above to donate $1 </p>
 
     </div>
 
