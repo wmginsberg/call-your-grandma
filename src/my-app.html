@@ -24,6 +24,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="my-icons.html">
+<!-- <link rel="import" href="my-view1.html">
+<link rel="import" href="my-view2.html">
+<link rel="import" href="my-view3.html"> -->
 
 <dom-module id="my-app">
 
@@ -96,6 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
               <div title>Call Your Grandma</div>
               <paper-icon-button id="loginicon" icon="social:person" on-tap="login"></paper-icon-button>
+ <!--              <paper-icon-button id="logouticon" icon="social:person-outline" on-tap="logout"></paper-icon-button> -->
               <firebase-auth app-name="call-your-grandma" id="auth" user="{{user}}" signed-in="{{signedIn}}" provider="google" on-error="handleError"></firebase-auth>
             </app-toolbar>
           </app-header>
@@ -137,11 +141,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ],
 
       _routePageChanged: function(page) {
+        console.log("page route " + page);
         this.page = page || 'view1';
       },
 
       _pageChanged: function(page) {
         // load page import on demand.
+        console.log("page changed " + page);
+        this.page = page || 'view1';
         this.importHref(
           this.resolveUrl('my-' + page + '.html'), null, null, true);
       },
@@ -155,8 +162,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               console.log("fail " + error)
             });  
 
-        this.$.loginicon.icon = "social:person";
-      }
+//        this.$.loginicon.icon = "social:person";
+      }//,
+
+//       logout: function() {
+//         this.$.auth.signOut()
+//             .then(function(response) { 
+//               console.log("success " + response) 
+//             })
+//             .catch(function(error) { 
+//               console.log("fail " + error)
+//             });  
+
+// //        this.$.loginicon.icon = "social:person-outline";
+//       }
 
     });
 
